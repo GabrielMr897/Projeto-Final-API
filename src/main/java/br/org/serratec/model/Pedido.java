@@ -2,12 +2,18 @@ package br.org.serratec.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Pedido {
@@ -27,6 +33,13 @@ public class Pedido {
     private LocalDateTime dataEnvio;
 
     private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "id_cliente")
+    private Cliente cliente;
+
+    @OneToMany(mappedBy = "id.pedido", fetch = FetchType.EAGER)
+    private Set<ItemPedido> itemPedido = new HashSet<>();
 
     public Long getIdPedido() {
         return idPedido;
@@ -66,5 +79,21 @@ public class Pedido {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Set<ItemPedido> getItemPedido() {
+        return itemPedido;
+    }
+
+    public void setItemPedido(Set<ItemPedido> itemPedido) {
+        this.itemPedido = itemPedido;
     }
 }  
