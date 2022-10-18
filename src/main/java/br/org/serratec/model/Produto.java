@@ -1,18 +1,16 @@
 package br.org.serratec.model;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -48,8 +46,7 @@ public class Produto {
     @JoinColumn(name = "id_categoria")
     private Categoria categoria;
 
-    @OneToMany(mappedBy = "id.produto", fetch = FetchType.EAGER)
-    private Set<ItemPedido> itemPedido = new HashSet<>();
+    
     
 
     public Long getIdProduto() {
@@ -114,14 +111,6 @@ public class Produto {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
-    }
-
-    public Set<ItemPedido> getItemPedido() {
-        return itemPedido;
-    }
-
-    public void setItemPedido(Set<ItemPedido> itemPedido) {
-        this.itemPedido = itemPedido;
     }
 
 
