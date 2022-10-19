@@ -29,4 +29,9 @@ public class CategoriaService {
 
         return categoria;
     }
+
+    public Categoria update (Categoria categoria, Long id) {
+        categoria.getIdCategoria();
+        return categoriaRepository.save(categoria);
+    }
 }
