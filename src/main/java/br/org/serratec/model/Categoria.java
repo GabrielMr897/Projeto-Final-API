@@ -14,10 +14,10 @@ public class Categoria {
 	@Column(name = "id_categoria")
 	private Long idCategoria;
 
-	
+	@Column(name = "nome")
 	private String nomeCategoria;
 	
-
+    @Column(name = "descricao")
 	private String descricaoCategoria;
 
 
