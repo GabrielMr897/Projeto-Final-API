@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -39,11 +39,10 @@ public class Cliente {
     @Column(name = "data_nasc")
     private LocalDate dataNascimento;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
-    
-
+   
     public Long getIdCliente() {
         return idCliente;
     }
