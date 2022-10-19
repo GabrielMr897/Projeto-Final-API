@@ -1,5 +1,6 @@
 package br.org.serratec.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,8 +10,9 @@ import javax.persistence.Id;
 public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_endereco")
     private Long idEndereco;
-
+    
     private String cep;
 
     private String rua;
@@ -24,7 +26,7 @@ public class Endereco {
     private String complemento;
 
     private String estado;
-
+    
     public Long getIdEndereco() {
         return idEndereco;
     }
