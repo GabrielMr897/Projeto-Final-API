@@ -4,17 +4,15 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.ietf.jgss.Oid;
 
 
 @Entity
@@ -40,7 +38,8 @@ public class Produto {
     @Column(name = "valor_unitario")
     private Double valorUnitario;
 
-    private Oid imagem;
+    @Lob
+    private byte[] imagem;
 
     @ManyToOne
     @JoinColumn(name = "id_categoria")
@@ -97,20 +96,20 @@ public class Produto {
         this.valorUnitario = valorUnitario;
     }
 
-    public Oid getImagem() {
-        return imagem;
-    }
-
-    public void setImagem(Oid imagem) {
-        this.imagem = imagem;
-    }
-
     public Categoria getCategoria() {
         return categoria;
     }
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public byte[] getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
     }
 
 

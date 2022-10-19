@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class Categoria {
@@ -16,10 +14,10 @@ public class Categoria {
 	@Column(name = "id_categoria")
 	private Long idCategoria;
 
-	@NotBlank(message = "preencha corretamente o nome da categoria")
+	
 	private String nome;
 	
-	@NotNull
+
 	private String descricao;
 
 	
