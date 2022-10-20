@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import br.org.serratec.dto.ClienteDTO;
 import br.org.serratec.dto.ClienteInserirDTO;
+import br.org.serratec.dto.EnderecoDTO;
 import br.org.serratec.exception.CpfException;
 import br.org.serratec.exception.EmailException;
 import br.org.serratec.model.Cliente;
+import br.org.serratec.model.Endereco;
 import br.org.serratec.repository.ClienteRepository;
 
 @Service
@@ -45,10 +47,12 @@ public class ClienteService {
 		if (clienteRepository.findByEmail(clienteInserirDTO.getEmail()) != null) {
 			throw new EmailException("Email já cadastrado");
 		}
+		Endereco endereco = clienteInserirDTO.getEndereco();
+		EnderecoDTO enderecoDTO = enderecoService.buscar(endereco.getCep()); 
 		Cliente cliente = new Cliente();
 		cliente.setNomeUsuario(clienteInserirDTO.getNomeUsuario());
 		cliente.setEmail(clienteInserirDTO.getEmail());
-		cliente.setEndereco(clienteInserirDTO.getEndereco()); //Talvez tenha que consumir o VIA CEP aqui.
+		cliente.setEndereco(endereco.getIdEndereco());  //Talvez tenha que consumir o VIA CEP aqui.
 		cliente.setSenha(bCryptPasswordEncoder.encode(clienteInserirDTO.getSenha()));
 		cliente = clienteRepository.save(cliente);
 		return new ClienteDTO(cliente);
