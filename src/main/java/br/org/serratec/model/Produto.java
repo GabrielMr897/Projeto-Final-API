@@ -29,7 +29,7 @@ public class Produto {
     @NotNull(message = "preencha corretamente campo da descricao")
     private String descricao;
 
-    @Column(name = "qtd_Estoque")
+    @Column(name = "qtd_estoque")
     private Integer quantidadeEstoque;
 
     @Column(name = "data_cadastro")

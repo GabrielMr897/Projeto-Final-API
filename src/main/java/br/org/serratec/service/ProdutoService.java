@@ -25,6 +25,7 @@ public class ProdutoService {
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/produtos/{id}/foto").buildAndExpand(produto.getIdProduto()).toUri();
 
         ProdutoDTO dto = new ProdutoDTO();
+        dto.setIdProduto(produto.getIdProduto());
         dto.setNome(produto.getNome());
         dto.setDescricao(produto.getDescricao());
         dto.setDataCadastro(produto.getDataCadastro());
@@ -39,10 +40,12 @@ public class ProdutoService {
         Produto produto = new Produto();
         produto.setNome(produtoInserirDTO.getNome());
         produto.setDescricao(produtoInserirDTO.getDescricao());
+        produto.setQuantidadeEstoque(produtoInserirDTO.getQuantidadeEstoque());
         produto.setDataCadastro(produtoInserirDTO.getDataCadastro());
         produto.setValorUnitario(produtoInserirDTO.getValorUnitario());
         produto.setCategoria(produtoInserirDTO.getCategoria());
         produto.setImagem(file.getBytes());
+        
        
         
         produto = produtoRepository.save(produto);

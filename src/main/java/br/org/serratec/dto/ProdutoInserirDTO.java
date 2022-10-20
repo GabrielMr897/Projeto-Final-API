@@ -6,8 +6,10 @@ import br.org.serratec.model.Categoria;
 import br.org.serratec.model.Produto;
 
 public class ProdutoInserirDTO {
+    private Long idProduto;
     private String nome;
     private String descricao;
+    private Integer quantidadeEstoque;
     private LocalDate dataCadastro;
     private Double valorUnitario;
     private Categoria categoria;
@@ -18,8 +20,10 @@ public class ProdutoInserirDTO {
     }
     
     public ProdutoInserirDTO(Produto produto) {
+        this.idProduto = produto.getIdProduto();
         this.nome = produto.getNome();
         this.descricao = produto.getDescricao();
+        this.quantidadeEstoque = produto.getQuantidadeEstoque();
         this.dataCadastro = produto.getDataCadastro();
         this.valorUnitario = produto.getValorUnitario();
         this.categoria = produto.getCategoria();
@@ -54,5 +58,21 @@ public class ProdutoInserirDTO {
     }
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public Integer getQuantidadeEstoque() {
+        return quantidadeEstoque;
+    }
+
+    public void setQuantidadeEstoque(Integer quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
+    }
+
+    public Long getIdProduto() {
+        return idProduto;
+    }
+
+    public void setIdProduto(Long idProduto) {
+        this.idProduto = idProduto;
     }
 }
