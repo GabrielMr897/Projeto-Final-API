@@ -2,6 +2,7 @@ package br.org.serratec.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -9,55 +10,73 @@ import org.springframework.stereotype.Service;
 
 import br.org.serratec.dto.ClienteDTO;
 import br.org.serratec.dto.ClienteInserirDTO;
-import br.org.serratec.dto.EnderecoDTO;
-import br.org.serratec.exception.CpfException;
-import br.org.serratec.exception.EmailException;
+import br.org.serratec.dto.ClienteListDTO;
+import br.org.serratec.dto.EnderecoInserirDTO;
 import br.org.serratec.model.Cliente;
 import br.org.serratec.model.Endereco;
 import br.org.serratec.repository.ClienteRepository;
 
 @Service
 public class ClienteService {
-	
-	@Autowired
-	private ClienteRepository clienteRepository;
-	
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	@Autowired
-	private EnderecoService enderecoService;
-	
-	public List<ClienteDTO> listar() {
-		List<Cliente> clientes = clienteRepository.findAll();
-		List<ClienteDTO> clientesDTO = new ArrayList<>();
-		
-		for (Cliente cliente : clientes) {
-			clientesDTO.add(new ClienteDTO(cliente));
-		}
 
-		return clientesDTO;
-	}
-	
-	
-	public ClienteDTO inserir(ClienteInserirDTO clienteInserirDTO) {
-		if (clienteRepository.findByCpf(clienteInserirDTO.getCpf()) != null) {
-			throw new CpfException("CPF já cadastrado");
-		}
-		if (clienteRepository.findByEmail(clienteInserirDTO.getEmail()) != null) {
-			throw new EmailException("Email já cadastrado");
-		}
-		Endereco endereco = clienteInserirDTO.getEndereco();
-		EnderecoDTO enderecoDTO = enderecoService.buscar(endereco.getCep()); 
-		Cliente cliente = new Cliente();
-		cliente.setNomeUsuario(clienteInserirDTO.getNomeUsuario());
-		cliente.setEmail(clienteInserirDTO.getEmail());
-		cliente.setEndereco(endereco.getIdEndereco());  //Talvez tenha que consumir o VIA CEP aqui.
-		cliente.setSenha(bCryptPasswordEncoder.encode(clienteInserirDTO.getSenha()));
-		cliente = clienteRepository.save(cliente);
-		return new ClienteDTO(cliente);
-		
-	}
-		
-	
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    @Autowired
+    private EnderecoService enderecoService;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public List<ClienteListDTO> listar() {
+        List<Cliente> clientes = clienteRepository.findAll();
+        List<ClienteListDTO> clientesDTO = new ArrayList<>();
+
+        for (Cliente cliente : clientes) {
+            clientesDTO.add(new ClienteListDTO(cliente));
+        }
+
+        return clientesDTO;
+    }
+
+    public ClienteListDTO buscar(Long id) {
+        Optional<Cliente> clientes = clienteRepository.findById(id);
+        if (!clientes.isPresent()) {
+            return null;
+        }
+        return new ClienteListDTO(clientes.get());
+    }
+
+    public ClienteDTO inserir(ClienteInserirDTO c) {
+
+        EnderecoInserirDTO endereco = c.getEndereco();
+        Endereco enderecoViaCep = enderecoService.salvar(endereco.getCep(), endereco.getComplemento(),
+                endereco.getNumero());
+
+        Cliente cliente = new Cliente();
+        cliente.setNomeCompleto(c.getNomeCompleto());
+        cliente.setNomeUsuario(c.getNomeUsuario());
+        cliente.setEmail(c.getEmail());
+        cliente.setCpf(c.getCpf());
+        cliente.setTelefone(c.getTelefone());
+        cliente.setDataNascimento(c.getDataNascimento());
+        cliente.setSenha(bCryptPasswordEncoder.encode(c.getSenha()));
+        cliente.setEndereco(enderecoViaCep);
+        cliente = clienteRepository.save(cliente);
+
+        /*
+         * mailConfig.sendEmail(c.getEmail(), "Cadastro de Usuário",
+         * cliente.toString());
+         */
+        return new ClienteDTO(cliente);
+    }
+
+    public Boolean delete(Long id) {
+        Optional<Cliente> clientes = clienteRepository.findById(id);
+        if (clientes.isPresent()) {
+            clienteRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }

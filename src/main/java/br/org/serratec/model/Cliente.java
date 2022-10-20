@@ -1,17 +1,26 @@
 package br.org.serratec.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -20,45 +29,63 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cliente")
-    private Long idCliente;
-    
+    private Long id;
+
+    @Email(message = "digite um email valido")
     private String email;
 
+    @NotBlank(message = "você deve digitar um nome de usuário valido")
     @Column(name = "nome_usuario")
     private String nomeUsuario;
 
+    @NotBlank(message = "você deve digitar um nome")
     @Column(name = "nome_completo")
     private String nomeCompleto;
 
+    @NotBlank(message = "você deve digitar uma senha")
+    @Size(min = 8)
     private String senha;
 
-    @CPF(message = "preencha o cpf corretamente")
+    @CPF(message = "você deve digitar um cpf valido")
     private String cpf;
 
+    @NotBlank(message = "você deve digitar um telefone valido")
+    @Size
     private String telefone;
 
-    @Column(name = "data_nasc")
+    @NotNull(message = "você deve digitar uma data correta")
     @Past
+    @Column(name = "data_nasc")
     private LocalDate dataNascimento;
 
-    @ManyToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
-   
-    public Long getIdCliente() {
-        return idCliente;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedido;
+
+    @Override
+    public String toString() {
+        return "Email: " + email + "\nNome de Usuario: " + nomeUsuario + "\nNome Completo: " + nomeCompleto + "\nCpf: "
+                + cpf + "\nTelefone: " + telefone + "\nData de Nascimento: " + dataNascimento;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {
-		return email;
-	}
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void setIdCliente(Long idCliente) {
-        this.idCliente = idCliente;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNomeUsuario() {
@@ -116,5 +143,13 @@ public class Cliente {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-    
+
+    public List<Pedido> getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(List<Pedido> pedido) {
+        this.pedido = pedido;
+    }
+
 }

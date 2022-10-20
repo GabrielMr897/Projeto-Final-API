@@ -2,91 +2,93 @@ package br.org.serratec.dto;
 
 import br.org.serratec.model.Endereco;
 
+
 public class EnderecoDTO {
     
-	private String cep;
-	
-    private String rua;
-    
-    private String bairro;
-    
-    private String cidade;
-    
-    private Integer numero;
-    
+    private Long id;
+    private String cep;
+    private String logradouro;
     private String complemento;
-    
+    private String bairro;
+    private String cidade;
     private String estado;
-    
+    private Integer numero;
+
     public EnderecoDTO() {
-		// TODO Auto-generated constructor stub
-	}
-    
-	public EnderecoDTO(Endereco endereco) {
-		this.cep = endereco.getCep();
-		this.rua = endereco.getRua();
-		this.bairro = endereco.getBairro();
-		this.cidade = endereco.getCidade();
-		this.numero = endereco.getNumero();
-		this.complemento = endereco.getComplemento();
-		this.estado = endereco.getEstado();
-	}
+    }
 
-	public String getCep() {
-		return cep;
-	}
+    public EnderecoDTO(Endereco endereco) {
+        this.id = endereco.getId();
+        this.cep = endereco.getCep();
+        this.logradouro = endereco.getLogradouro();
+        this.complemento = endereco.getComplemento();
+        this.bairro = endereco.getBairro();
+        this.cidade = endereco.getLocalidade();
+        this.estado = endereco.getUf();
+        this.numero = endereco.getNumero();
+    }
 
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getRua() {
-		return rua;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setRua(String rua) {
-		this.rua = rua;
-	}
+    public String getCep() {
+        return cep;
+    }
 
-	public String getBairro() {
-		return bairro;
-	}
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
 
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
+    public String getLogradouro() {
+        return logradouro;
+    }
 
-	public String getCidade() {
-		return cidade;
-	}
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
 
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
+    public String getComplemento() {
+        return complemento;
+    }
 
-	public String getComplemento() {
-		return complemento;
-	}
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
 
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
+    public String getBairro() {
+        return bairro;
+    }
 
-	public String getEstado() {
-		return estado;
-	}
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
 
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
+    public String getCidade() {
+        return cidade;
+    }
 
-	public Integer getNumero() {
-		return numero;
-	}
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
 
-	public void setNumero(Integer numero) {
-		this.numero = numero;
-	}
-	
-	
-}	
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Integer getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Integer numero) {
+        this.numero = numero;
+    }
+}
