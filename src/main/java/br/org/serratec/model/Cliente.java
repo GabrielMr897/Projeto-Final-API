@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -37,6 +38,7 @@ public class Cliente {
     private String telefone;
 
     @Column(name = "data_nasc")
+    @Past
     private LocalDate dataNascimento;
 
     @ManyToOne
