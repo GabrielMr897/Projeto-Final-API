@@ -62,10 +62,26 @@ public class ProdutoService {
         return produtoDTO;
     }
     
-    public Optional<Produto> buscar(Long id){
+    public ProdutoDTO buscar(Long id){
         Optional<Produto> produto = produtoRepository.findById(id);
-        return produto;
+
+        
+        if (!produto.isPresent()) {
+            return null;
+		}
+        return new ProdutoDTO(produto.get());
+	}
+
+    public Produto buscarPorFoto(Long id) {
+        Optional<Produto> produto = produtoRepository.findById(id);
+
+        
+        if (!produto.isPresent()) {
+            return null;
+		}
+        return produto.get();
     }
+    
     
     public Produto update (Produto produto, Long id) {
         produto.setIdProduto(id);

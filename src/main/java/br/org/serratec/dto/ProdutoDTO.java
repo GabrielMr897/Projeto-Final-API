@@ -2,6 +2,7 @@ package br.org.serratec.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import br.org.serratec.model.Categoria;
 import br.org.serratec.model.Produto;
