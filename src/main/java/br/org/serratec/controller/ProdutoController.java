@@ -4,7 +4,6 @@ package br.org.serratec.controller;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +34,26 @@ public class ProdutoController {
     @GetMapping
     public ResponseEntity<List<ProdutoDTO>> listar() {
         return ResponseEntity.ok(produtoService.listar());
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<ProdutoDTO> buscar(@PathVariable Long id) {
+        ProdutoDTO produtoDto = produtoService.buscar(id);
+        
+        if (produtoDto == null) {
+            return ResponseEntity.notFound().build();
+		}
+        return ResponseEntity.ok(produtoDto);
+	}
+
+    @GetMapping("/{id}/foto")
+    public ResponseEntity<byte[]> buscarPorFoto(@PathVariable Long id) {
+       Produto produto = produtoService.buscarPorFoto(id);
+
+       if(produto == null) {
+        return ResponseEntity.notFound().build();
+       }
+        return ResponseEntity.ok(produto.getImagem());
     }
 
     @PostMapping
