@@ -1,10 +1,18 @@
 package br.org.serratec.service;
 
+import java.io.IOException;
+import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import br.org.serratec.dto.ProdutoDTO;
+import br.org.serratec.dto.ProdutoInserirDTO;
 import br.org.serratec.model.Produto;
 import br.org.serratec.repository.ProdutoRepository;
 
@@ -12,14 +20,43 @@ import br.org.serratec.repository.ProdutoRepository;
 public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
-    
-    public Produto inserir(Produto p) {
-        produtoRepository.save(p);
-        return p;
+
+    public ProdutoDTO inserirUriImagem(Produto produto) {
+        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/produtos/{id}/foto").buildAndExpand(produto.getIdProduto()).toUri();
+
+        ProdutoDTO dto = new ProdutoDTO();
+        dto.setNome(produto.getNome());
+        dto.setDescricao(produto.getDescricao());
+        dto.setDataCadastro(produto.getDataCadastro());
+        dto.setValorUnitario(produto.getValorUnitario());
+        dto.setCategoria(produto.getCategoria());
+        dto.setUri(uri.toString());
+
+        return dto;
     }
     
-    public List<Produto> listar(){
-        return produtoRepository.findAll();
+    public ProdutoDTO inserir(ProdutoInserirDTO produtoInserirDTO, MultipartFile file) throws IOException {
+        Produto produto = new Produto();
+        produto.setNome(produtoInserirDTO.getNome());
+        produto.setDescricao(produtoInserirDTO.getDescricao());
+        produto.setDataCadastro(produtoInserirDTO.getDataCadastro());
+        produto.setValorUnitario(produtoInserirDTO.getValorUnitario());
+        produto.setCategoria(produtoInserirDTO.getCategoria());
+        produto.setImagem(file.getBytes());
+       
+        
+        produto = produtoRepository.save(produto);
+        return inserirUriImagem(produto);
+    }
+    
+    public List<ProdutoDTO> listar(){
+        List<Produto> produtos = produtoRepository.findAll();
+        List<ProdutoDTO> produtoDTO = new ArrayList<>();
+
+        for(Produto produto : produtos) {
+            produtoDTO.add(inserirUriImagem(produto));
+        }
+        return produtoDTO;
     }
     
     public Optional<Produto> buscar(Long id){

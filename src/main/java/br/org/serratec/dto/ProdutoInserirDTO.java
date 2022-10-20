@@ -1,40 +1,30 @@
 package br.org.serratec.dto;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 import br.org.serratec.model.Categoria;
 import br.org.serratec.model.Produto;
 
-
-public class ProdutoDTO implements Serializable{
-    private Long idProduto;
+public class ProdutoInserirDTO {
     private String nome;
     private String descricao;
     private LocalDate dataCadastro;
     private Double valorUnitario;
     private Categoria categoria;
     
-    private String uri;
     
     
-    public ProdutoDTO() {
+    public ProdutoInserirDTO() {
     }
     
-    public ProdutoDTO(Produto produto) {
-        this.idProduto = produto.getIdProduto();
+    public ProdutoInserirDTO(Produto produto) {
         this.nome = produto.getNome();
         this.descricao = produto.getDescricao();
         this.dataCadastro = produto.getDataCadastro();
         this.valorUnitario = produto.getValorUnitario();
         this.categoria = produto.getCategoria();
     }
-    public Long getIdProduto() {
-        return idProduto;
-    }
-    public void setIdProduto(Long idProduto) {
-        this.idProduto = idProduto;
-    }
+   
     public String getNome() {
         return nome;
     }
@@ -65,12 +55,4 @@ public class ProdutoDTO implements Serializable{
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
-    public String getUri() {
-        return uri;
-    }
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-    
-    
 }

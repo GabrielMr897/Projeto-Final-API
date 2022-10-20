@@ -1,12 +1,12 @@
 package br.org.serratec.controller;
 
 
+import java.io.IOException;
+import java.net.URI;
 import java.util.List;
-
-import javax.validation.Valid;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,8 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.org.serratec.dto.ProdutoDTO;
+import br.org.serratec.dto.ProdutoInserirDTO;
 import br.org.serratec.model.Produto;
 import br.org.serratec.service.ProdutoService;
 
@@ -27,20 +33,20 @@ public class ProdutoController {
     private ProdutoService produtoService;
     
     @GetMapping
-    public List<Produto> listar() {
-        return produtoService.listar();
-
-        
+    public ResponseEntity<List<ProdutoDTO>> listar() {
+        return ResponseEntity.ok(produtoService.listar());
     }
 
     @PostMapping
-    public ResponseEntity<Produto> inserir(@Valid @RequestBody Produto produto){
+    public ResponseEntity<Object> inserir(@RequestParam MultipartFile file, @RequestPart ProdutoInserirDTO produtoInserirDTO) throws IOException{
 
-        if (null != produto){
-            produtoService.inserir(produto);
-            return ResponseEntity.ok(produto);
-        } else {
-            return ResponseEntity.notFound().build();
+        try {
+            ProdutoDTO produtoDTO = produtoService.inserir(produtoInserirDTO, file);
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(produtoDTO.getIdProduto()).toUri();
+
+            return ResponseEntity.created(uri).body(produtoDTO);
+        } catch(Exception e) {
+            return ResponseEntity.unprocessableEntity().body(e.getMessage());
         }
     }
     
