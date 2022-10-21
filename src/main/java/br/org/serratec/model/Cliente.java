@@ -22,7 +22,6 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-
 @Entity
 public class Cliente {
 
@@ -50,11 +49,11 @@ public class Cliente {
     private String cpf;
 
     @NotBlank(message = "você deve digitar um telefone valido")
-    @Size
+    @Size(min = 12)
     private String telefone;
 
     @NotNull(message = "você deve digitar uma data correta")
-    @Past
+    @Past(message = " Digite uma data de nascimento válida.")
     @Column(name = "data_nasc")
     private LocalDate dataNascimento;
 

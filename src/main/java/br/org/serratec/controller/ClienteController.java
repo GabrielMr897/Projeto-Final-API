@@ -22,9 +22,6 @@ import br.org.serratec.dto.ClienteInserirDTO;
 import br.org.serratec.dto.ClienteListDTO;
 import br.org.serratec.exception.EmailException;
 import br.org.serratec.service.ClienteService;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping("/clientes")
@@ -33,27 +30,11 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 
-	@ApiOperation(value = "Lista todos os clientes")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Retorna todos os clientes"),
-			@ApiResponse(responseCode = "401", description = "Erro de autenticação"),
-			@ApiResponse(responseCode = "403", description = "Você não tem permissão para o recurso"),
-			@ApiResponse(responseCode = "404", description = "Cliente não encontrado"),
-			@ApiResponse(responseCode = "500", description = "Erro na aplicação")
-	})
 	@GetMapping
 	public ResponseEntity<List<ClienteListDTO>> listar() {
 		return ResponseEntity.ok(clienteService.listar());
 	}
 
-	@ApiOperation(value = "Lista cliente pelo id")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Retorna cliente do id referenciado"),
-			@ApiResponse(responseCode = "401", description = "Erro de autenticação"),
-			@ApiResponse(responseCode = "403", description = "Você não tem permissão para o recurso"),
-			@ApiResponse(responseCode = "404", description = "Cliente não encontrado"),
-			@ApiResponse(responseCode = "500", description = "Erro na aplicação")
-	})
 	@GetMapping("{id}")
 	public ResponseEntity<ClienteListDTO> buscar(@PathVariable Long id) {
 		ClienteListDTO cliente = clienteService.buscar(id);
@@ -66,15 +47,6 @@ public class ClienteController {
 	}
 
 	@PostMapping
-	@ApiOperation(value = "Cadastrado um novo cliente", notes = "preencha com os dados do clientes")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "201", description = "Retorna o cliente cadastrado"),
-			@ApiResponse(responseCode = "401", description = "Erro de autenticação"),
-			@ApiResponse(responseCode = "403", description = "Você não tem permissão para o recurso"),
-			@ApiResponse(responseCode = "422", description = "Você credencias já cadastradas no banco de dados"),
-			@ApiResponse(responseCode = "404", description = "Cliente não encontrado"),
-			@ApiResponse(responseCode = "500", description = "Erro na aplicação")
-	})
 	public ResponseEntity<Object> inserir(@Valid @RequestBody ClienteInserirDTO cliente) {
 		try {
 			ClienteDTO clienteDTO = clienteService.inserir(cliente);
@@ -87,15 +59,6 @@ public class ClienteController {
 	}
 
 	@DeleteMapping("{id}")
-	@ApiOperation(value = "Deleta um cliente", notes = "preencha com o id do cliente")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "202", description = "Deletado com sucesso"),
-			@ApiResponse(responseCode = "204", description = "Sem conteúdo"),
-			@ApiResponse(responseCode = "401", description = "Erro de autenticação"),
-			@ApiResponse(responseCode = "403", description = "Você não tem permissão para o recurso"),
-			@ApiResponse(responseCode = "404", description = "Cliente não encontrado"),
-			@ApiResponse(responseCode = "500", description = "Erro na aplicação")
-	})
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 
 		Boolean response = clienteService.delete(id);
