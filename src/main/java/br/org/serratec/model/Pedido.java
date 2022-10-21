@@ -1,8 +1,6 @@
 package br.org.serratec.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,23 +14,22 @@ import javax.persistence.ManyToOne;
 
 import br.org.serratec.enums.Status;
 
-
 @Entity
 public class Pedido {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pedido")
     private Long idPedido;
 
     @Column(name = "data_pedido")
-    private LocalDateTime dataPedido;
+    private LocalDate dataPedido;
 
     @Column(name = "data_entrega")
     private LocalDate dataEntrega;
 
     @Column(name = "data_envio")
-    private LocalDateTime dataEnvio;
+    private LocalDate dataEnvio;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -49,28 +46,12 @@ public class Pedido {
         this.idPedido = idPedido;
     }
 
-    public LocalDateTime getDataPedido() {
-        return dataPedido;
-    }
-
-    public void setDataPedido(LocalDateTime dataPedido) {
-        this.dataPedido = dataPedido;
-    }
-
     public LocalDate getDataEntrega() {
         return dataEntrega;
     }
 
     public void setDataEntrega(LocalDate dataEntrega) {
         this.dataEntrega = dataEntrega;
-    }
-
-    public LocalDateTime getDataEnvio() {
-        return dataEnvio;
-    }
-
-    public void setDataEnvio(LocalDateTime dataEnvio) {
-        this.dataEnvio = dataEnvio;
     }
 
     public Cliente getCliente() {
@@ -88,4 +69,20 @@ public class Pedido {
     public void setStatus(Status status) {
         this.status = status;
     }
-}  
+
+    public LocalDate getDataPedido() {
+        return dataPedido;
+    }
+
+    public void setDataPedido(LocalDate dataPedido) {
+        this.dataPedido = dataPedido;
+    }
+
+    public LocalDate getDataEnvio() {
+        return dataEnvio;
+    }
+
+    public void setDataEnvio(LocalDate dataEnvio) {
+        this.dataEnvio = dataEnvio;
+    }
+}

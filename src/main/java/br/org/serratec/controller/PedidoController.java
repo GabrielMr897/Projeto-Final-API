@@ -3,8 +3,6 @@ package br.org.serratec.controller;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,41 +20,39 @@ import br.org.serratec.service.PedidoService;
 @RestController
 @RequestMapping("/pedidos")
 public class PedidoController {
-    
+
     @Autowired
     private PedidoService pedidoService;
     @Autowired
     private PedidoRepository pedidoRepository;
-    
-    
+
     @GetMapping
     public List<Pedido> listar() {
         return pedidoService.listar();
     }
-    
-    @GetMapping({"id"})
-    public ResponseEntity<Pedido> buscar(@PathVariable Long id){
-        Optional<Pedido> pedido=pedidoRepository.findById(id);
-        if(pedido.isPresent()) {
-            return ResponseEntity.ok(pedido.get());
-        }else{
-            return ResponseEntity.notFound().build();
-        }
-    }
-    
-    @PostMapping
-    public ResponseEntity<Pedido> inserir(@Valid @RequestBody Pedido pedido){
 
-        if (null != pedido){
-            pedidoService.inserir(pedido);
-            return ResponseEntity.ok(pedido);
+    @GetMapping({ "id" })
+    public ResponseEntity<Pedido> buscar(@PathVariable Long id) {
+        Optional<Pedido> pedido = pedidoRepository.findById(id);
+        if (pedido.isPresent()) {
+            return ResponseEntity.ok(pedido.get());
         } else {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
+    @PostMapping
+    public ResponseEntity<Pedido> inserir(@RequestBody Pedido pedido) {
+
+        if (pedido != null) {
+            return ResponseEntity.ok(pedidoService.inserir(pedido));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PutMapping
-    public ResponseEntity<Pedido> atualizar (@PathVariable Long id, @RequestBody Pedido pedido){
+    public ResponseEntity<Pedido> atualizar(@PathVariable Long id, @RequestBody Pedido pedido) {
         Pedido pedidoAtualizado = pedidoService.update(pedido, id);
         return ResponseEntity.ok(pedidoAtualizado);
     }
