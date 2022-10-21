@@ -33,7 +33,6 @@ public class ClienteDTO {
     private String cpf;
 
     @NotBlank(message = " Você deve digitar um telefone válido")
-    @Size(min = 12)
     private String telefone;
 
     @NotNull(message = " Você deve digitar uma data correta")
