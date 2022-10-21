@@ -2,19 +2,44 @@ package br.org.serratec.dto;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.br.CPF;
+
 import br.org.serratec.model.Cliente;
 
 
 
 public class ClienteInserirDTO {
     
+    @Email(message = " Digite um email valido")
     private String email;
+
+    @NotBlank(message = " Você deve digitar um nome de usuário válido")
     private String nomeUsuario;
+
+    @NotBlank(message = " Você deve digitar um nome")
     private String nomeCompleto;
-    private String cpf;
-    private String telefone;
-    private LocalDate dataNascimento;
+
+    @NotBlank(message = " Você deve digitar uma senha")
+    @Size(min = 8)
     private String senha;
+
+    @CPF(message = " Você deve digitar um cpf válido")
+    private String cpf;
+
+    @NotBlank(message = " Você deve digitar um telefone válido")
+    @Size (min = 12)
+    private String telefone;
+
+    @NotNull(message = " Você deve digitar uma data correta")
+    @Past (message = " Digite uma data de nascimento válida.")
+    private LocalDate dataNascimento;
+
     private EnderecoInserirDTO endereco;
 
     public ClienteInserirDTO() {
