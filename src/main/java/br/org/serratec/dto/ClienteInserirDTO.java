@@ -31,7 +31,7 @@ public class ClienteInserirDTO {
     private String cpf;
 
     @NotBlank(message = " Você deve digitar um telefone válido")
-    @Size(min = 11, max = 11, message = " Por favor, digite 11 números.")
+    @Size(min = 12, max = 12, message = " Por favor, digite 11 números.")
     private String telefone;
 
     @NotNull(message = " Você deve digitar uma data correta")
