@@ -13,24 +13,27 @@ import br.org.serratec.repository.PedidoRepository;
 public class PedidoService {
     @Autowired
     private PedidoRepository pedidoRepository;
-    
+
     public Pedido inserir(Pedido p) {
-        pedidoRepository.save(p);
-        return p;
+
+        if (p == null) {
+            return null;
+        }
+
+        return pedidoRepository.save(p);
     }
-    
-    public List<Pedido> listar(){
+
+    public List<Pedido> listar() {
         return pedidoRepository.findAll();
     }
-    
-    public Optional<Pedido> buscar(Long id){
+
+    public Optional<Pedido> buscar(Long id) {
         Optional<Pedido> pedido = pedidoRepository.findById(id);
         return pedido;
     }
-    
-    public Pedido update (Pedido pedido, Long id) {
+
+    public Pedido update(Pedido pedido, Long id) {
         pedido.setIdPedido(id);
         return pedidoRepository.save(pedido);
     }
 }
-
