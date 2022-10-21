@@ -44,8 +44,7 @@ public class ProdutoService {
         produto.setDataCadastro(produtoInserirDTO.getDataCadastro());
         produto.setValorUnitario(produtoInserirDTO.getValorUnitario());
         produto.setCategoria(produtoInserirDTO.getCategoria());
-        produto.setImagem(file.getBytes());
-        
+        produto.setImagem(file.getBytes()); 
        
         
         produto = produtoRepository.save(produto);
