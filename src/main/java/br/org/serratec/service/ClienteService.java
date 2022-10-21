@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import br.org.serratec.dto.ClienteDTO;
 import br.org.serratec.dto.ClienteInserirDTO;
-import br.org.serratec.dto.ClienteListDTO;
 import br.org.serratec.dto.EnderecoInserirDTO;
 import br.org.serratec.model.Cliente;
 import br.org.serratec.model.Endereco;
@@ -28,23 +27,23 @@ public class ClienteService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public List<ClienteListDTO> listar() {
+    public List<ClienteDTO> listar() {
         List<Cliente> clientes = clienteRepository.findAll();
-        List<ClienteListDTO> clientesDTO = new ArrayList<>();
+        List<ClienteDTO> clientesDTO = new ArrayList<>();
 
         for (Cliente cliente : clientes) {
-            clientesDTO.add(new ClienteListDTO(cliente));
+            clientesDTO.add(new ClienteDTO(cliente));
         }
 
         return clientesDTO;
     }
 
-    public ClienteListDTO buscar(Long id) {
+    public ClienteDTO buscar(Long id) {
         Optional<Cliente> clientes = clienteRepository.findById(id);
         if (!clientes.isPresent()) {
             return null;
         }
-        return new ClienteListDTO(clientes.get());
+        return new ClienteDTO(clientes.get());
     }
 
     public ClienteDTO inserir(ClienteInserirDTO c) {

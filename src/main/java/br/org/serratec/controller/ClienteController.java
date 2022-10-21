@@ -19,7 +19,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.org.serratec.dto.ClienteDTO;
 import br.org.serratec.dto.ClienteInserirDTO;
-import br.org.serratec.dto.ClienteListDTO;
 import br.org.serratec.exception.EmailException;
 import br.org.serratec.service.ClienteService;
 
@@ -31,13 +30,13 @@ public class ClienteController {
 	private ClienteService clienteService;
 
 	@GetMapping
-	public ResponseEntity<List<ClienteListDTO>> listar() {
+	public ResponseEntity<List<ClienteDTO>> listar() {
 		return ResponseEntity.ok(clienteService.listar());
 	}
 
 	@GetMapping("{id}")
-	public ResponseEntity<ClienteListDTO> buscar(@PathVariable Long id) {
-		ClienteListDTO cliente = clienteService.buscar(id);
+	public ResponseEntity<ClienteDTO> buscar(@PathVariable Long id) {
+		ClienteDTO cliente = clienteService.buscar(id);
 
 		if (cliente != null) {
 			return ResponseEntity.ok(cliente);

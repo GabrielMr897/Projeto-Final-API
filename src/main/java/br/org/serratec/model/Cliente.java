@@ -1,7 +1,6 @@
 package br.org.serratec.model;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -19,8 +17,6 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Cliente {
@@ -59,10 +55,6 @@ public class Cliente {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
-
-    @JsonManagedReference
-    @OneToMany(mappedBy = "cliente")
-    private List<Pedido> pedido;
 
     @Override
     public String toString() {
@@ -140,14 +132,6 @@ public class Cliente {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
-    }
-
-    public List<Pedido> getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(List<Pedido> pedido) {
-        this.pedido = pedido;
     }
 
 }
