@@ -30,26 +30,25 @@ public class Cliente {
     @Column(name = "id_cliente")
     private Long id;
 
-    @Email(message = "digite um email valido")
+    @Email(message = " Digite um email válido")
     private String email;
 
-    @NotBlank(message = "você deve digitar um nome de usuário valido")
+    @NotBlank(message = " Você deve digitar um nome de usuário válido")
     @Column(name = "nome_usuario")
     private String nomeUsuario;
 
-    @NotBlank(message = "você deve digitar um nome")
+    @NotBlank(message = " Você deve digitar um nome")
     @Column(name = "nome_completo")
     private String nomeCompleto;
 
-    @NotBlank(message = "você deve digitar uma senha")
+    @NotBlank(message = " Você deve digitar uma senha")
     @Size(min = 8)
     private String senha;
 
-    @CPF(message = "você deve digitar um cpf valido")
+    @CPF(message = " Você deve digitar um cpf válido")
     private String cpf;
 
-    @NotBlank(message = "você deve digitar um telefone valido")
-    @Size(min = 12)
+    @NotBlank(message = " Você deve digitar um telefone válido")
     private String telefone;
 
     @NotNull(message = "você deve digitar uma data correta")

@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 
 import br.org.serratec.enums.Status;
 
@@ -22,12 +23,15 @@ public class Pedido {
     @Column(name = "id_pedido")
     private Long idPedido;
 
+    @NotBlank(message = " Por favor, preencha o campo data do pedido.")
     @Column(name = "data_pedido")
     private LocalDate dataPedido;
 
+    @NotBlank(message = " Por favor, preencha o campo data de entrega.")
     @Column(name = "data_entrega")
     private LocalDate dataEntrega;
 
+    @NotBlank(message = " Por favor, preencha o campo data de envio.")
     @Column(name = "data_envio")
     private LocalDate dataEnvio;
 

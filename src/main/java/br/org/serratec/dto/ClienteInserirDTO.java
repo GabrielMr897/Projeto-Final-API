@@ -12,10 +12,8 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import br.org.serratec.model.Cliente;
 
-
-
 public class ClienteInserirDTO {
-    
+
     @Email(message = " Digite um email valido")
     private String email;
 
@@ -26,18 +24,18 @@ public class ClienteInserirDTO {
     private String nomeCompleto;
 
     @NotBlank(message = " Você deve digitar uma senha")
-    @Size(min = 8)
+    @Size(min = 8, message = " Por favor, digite 8 caracteres.")
     private String senha;
 
     @CPF(message = " Você deve digitar um cpf válido")
     private String cpf;
 
     @NotBlank(message = " Você deve digitar um telefone válido")
-    @Size (min = 12)
+    @Size(min = 11, max = 11, message = " Por favor, digite 11 números.")
     private String telefone;
 
     @NotNull(message = " Você deve digitar uma data correta")
-    @Past (message = " Digite uma data de nascimento válida.")
+    @Past(message = " Digite uma data de nascimento válida.")
     private LocalDate dataNascimento;
 
     private EnderecoInserirDTO endereco;
