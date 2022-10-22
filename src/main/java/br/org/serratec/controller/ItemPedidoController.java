@@ -35,10 +35,10 @@ public class ItemPedidoController {
         return itemPedidoService.listar();
     }
 
-    @GetMapping({ "id" })
+    @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<ItemPedido> buscar(@PathVariable Long id) {
-        Optional<ItemPedido> itemPedido = itemPedidoRepository.findById(id);
+        Optional<ItemPedido> itemPedido = itemPedidoService.buscar(id);
         if (itemPedido.isPresent()) {
             return ResponseEntity.ok(itemPedido.get());
         } else {
@@ -67,7 +67,7 @@ public class ItemPedidoController {
         }
     }
 
-    @PutMapping
+    @PutMapping("{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<ItemPedido> atualizar(@PathVariable Long id, @RequestBody ItemPedido itemPedido) {
         ItemPedido itemPedidoAtualizado = itemPedidoService.update(itemPedido, id);

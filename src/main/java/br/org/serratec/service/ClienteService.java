@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.org.serratec.config.MailConfig;
 import br.org.serratec.dto.ClienteDTO;
 import br.org.serratec.dto.ClienteInserirDTO;
 import br.org.serratec.dto.EnderecoInserirDTO;
@@ -27,6 +28,9 @@ public class ClienteService {
 
     @Autowired
     private EnderecoRepository enderecoRepository;
+
+    @Autowired
+    private MailConfig mailConfig;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -85,7 +89,6 @@ public class ClienteService {
 
     public ClienteDTO update(ClienteInserirDTO c, Long id) {
 
-
         Cliente cliente = new Cliente();
         cliente.setId(id);
         cliente.setNomeCompleto(c.getNomeCompleto());
@@ -97,10 +100,7 @@ public class ClienteService {
         cliente.setSenha(bCryptPasswordEncoder.encode(c.getSenha()));
         cliente = clienteRepository.save(cliente);
 
-        /*
-         * mailConfig.sendEmail(c.getEmail(), "Cadastro de Usuário",
-         * cliente.toString());
-         */
+        mailConfig.sendEmail(cliente.getEmail(), "Cadastro de Usuário", cliente.toString());
         return new ClienteDTO(cliente);
     }
 }

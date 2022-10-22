@@ -1,11 +1,14 @@
 package br.org.serratec.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 @Configuration
 public class MailConfig {
 
-    /*@Autowired
+    @Autowired
     private JavaMailSender javaMailSender;
 
     public void sendEmail(String para, String assunto, String texto) {
@@ -16,6 +19,6 @@ public class MailConfig {
         message.setText(texto);
         message.setText("Dados do cadastro do usuário:\n" + texto + "\n\n\n\n" + "Serratec Residência-2022");
         javaMailSender.send(message);
-    }*/
+    }
 
 }
