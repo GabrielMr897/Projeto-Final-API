@@ -83,6 +83,7 @@ public class ProdutoService {
         produtoInserirDTO.setIdProduto(id);
 
         Produto produto = new Produto();
+        produto.setIdProduto(id);
         produto.setNome(produtoInserirDTO.getNome());
         produto.setDescricao(produtoInserirDTO.getDescricao());
         produto.setCategoria(produtoInserirDTO.getCategoria());
@@ -90,7 +91,6 @@ public class ProdutoService {
         produto.setQuantidadeEstoque(produtoInserirDTO.getQuantidadeEstoque());
         produto.setValorUnitario(produtoInserirDTO.getValorUnitario());
         produto.setImagem(file.getBytes());
-        ;
 
         produto = produtoRepository.save(produto);
 

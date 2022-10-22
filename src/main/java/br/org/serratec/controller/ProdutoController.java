@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -80,9 +79,9 @@ public class ProdutoController {
         }
     }
 
-    @PutMapping
+    @PutMapping("{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<ProdutoDTO> atualizar(@PathVariable Long id, @RequestBody ProdutoInserirDTO produtoInserirDTO,
+    public ResponseEntity<ProdutoDTO> atualizar(@PathVariable Long id, @RequestPart ProdutoInserirDTO produtoInserirDTO,
             @RequestParam MultipartFile file) throws IOException {
         ProdutoDTO produtoAtualizado = produtoService.update(produtoInserirDTO, id, file);
         return ResponseEntity.ok(produtoAtualizado);
