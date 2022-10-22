@@ -9,7 +9,13 @@ import br.org.serratec.model.ItemPedido;
 
 public interface ItemPedidoRepository extends JpaRepository<ItemPedido, Long> {
 
-    @Query(nativeQuery = true, value = "select id_pedido, sum(preco_venda) from item_pedido where :idPedido group by id_pedido")
-    public Page<ItemPedido> buscarTotalPedido(Long idPedido, Pageable pageable);
+    /*
+     * @Query(nativeQuery = true, value =
+     * "select id_pedido, sum(preco_venda) from item_pedido where :idPedido group by id_pedido"
+     * )
+     */
+    // @Query(nativeQuery = true, value = "SELECT i FROM item_pedido i WHERE
+    // :idPedido")
+    //public Page<ItemPedido> buscarTotalPedido(Long idPedido, Pageable pageable);
 
 }
