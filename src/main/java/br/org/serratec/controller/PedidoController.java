@@ -34,9 +34,9 @@ public class PedidoController {
         return pedidoService.listar();
     }
 
-    @GetMapping({ "id" })
+    @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Pedido> buscar(Long id) {
+    public ResponseEntity<Pedido> buscar(@PathVariable Long id) {
         Optional<Pedido> pedido = pedidoService.buscar(id);
 
         if (pedido.isPresent()) {
@@ -56,7 +56,7 @@ public class PedidoController {
         }
     }
 
-    @PutMapping
+    @PutMapping("{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Pedido> atualizar(@PathVariable Long id, @RequestBody Pedido pedido) {
         if (!pedidoRepository.existsById(id)) {
