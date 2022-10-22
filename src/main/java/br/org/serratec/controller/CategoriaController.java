@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.model.Categoria;
 import br.org.serratec.service.CategoriaService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping("/categorias")
@@ -27,12 +30,28 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @GetMapping
+    @ApiOperation(value = "Lista todas as categorias", notes = "Preencha com o ID da categoria")
+    @ApiResponses(value = {
+    		@ApiResponse(responseCode="200", description = "Retorna a categoria pelo ID"),
+    		@ApiResponse(responseCode="404", description = "Categoria não encontrada"),
+    		@ApiResponse(responseCode="401", description = "Erro na autenticação"),
+    		@ApiResponse(responseCode="403", description = "Você não tem permissão para o recurso"),
+    		@ApiResponse(responseCode="500", description = "Erro na aplicação")
+    })
     @ResponseStatus(HttpStatus.OK)
     public List<Categoria> listar() {
         return categoriaService.listar();
     }
 
     @GetMapping("{id}")
+    @ApiOperation(value = "Busca uma categoria pelo ID", notes = "Preencha com o ID da categoria")
+    @ApiResponses(value = {
+    		@ApiResponse(responseCode="200", description = "Retorna a categoria pelo ID"),
+    		@ApiResponse(responseCode="404", description = "Categoria não encontrada"),
+    		@ApiResponse(responseCode="401", description = "Erro na autenticação"),
+    		@ApiResponse(responseCode="403", description = "Você não tem permissão para o recurso"),
+    		@ApiResponse(responseCode="500", description = "Erro na aplicação")
+    })
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Categoria> buscar(@PathVariable Long id) {
         Optional<Categoria> categoria = categoriaService.buscar(id);

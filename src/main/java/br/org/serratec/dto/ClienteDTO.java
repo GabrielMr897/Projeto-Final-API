@@ -12,9 +12,11 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import br.org.serratec.model.Cliente;
 import br.org.serratec.model.Endereco;
+import io.swagger.annotations.ApiModelProperty;
 
 public class ClienteDTO {
-
+	
+	@ApiModelProperty(value = "Identifica o email")
     private Long id;
     @Email(message = " Digite um email válido")
     private String email;
