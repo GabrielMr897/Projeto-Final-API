@@ -3,6 +3,12 @@ package br.org.serratec.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import br.org.serratec.model.Categoria;
+import br.org.serratec.model.Cliente;
+import br.org.serratec.model.Endereco;
+import br.org.serratec.model.ItemPedido;
+import br.org.serratec.model.Pedido;
+import br.org.serratec.model.Produto;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -18,7 +24,10 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select()
                 .apis(RequestHandlerSelectors.basePackage("br.org.serratec.controller")).paths(PathSelectors.any())
-                .build().apiInfo(apiInfo());
+                .build()
+                //.ignoredParameterTypes(Categoria.class, Cliente.class, Endereco.class, ItemPedido.class,
+                //							   Pedido.class, Produto.class)
+                .apiInfo(apiInfo());
     }
 
     public ApiInfo apiInfo() {
