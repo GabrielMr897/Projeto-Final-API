@@ -82,4 +82,25 @@ public class ClienteService {
         }
         return false;
     }
+
+    public ClienteDTO update(ClienteInserirDTO c, Long id) {
+
+
+        Cliente cliente = new Cliente();
+        cliente.setId(id);
+        cliente.setNomeCompleto(c.getNomeCompleto());
+        cliente.setNomeUsuario(c.getNomeUsuario());
+        cliente.setEmail(c.getEmail());
+        cliente.setCpf(c.getCpf());
+        cliente.setTelefone(c.getTelefone());
+        cliente.setDataNascimento(c.getDataNascimento());
+        cliente.setSenha(bCryptPasswordEncoder.encode(c.getSenha()));
+        cliente = clienteRepository.save(cliente);
+
+        /*
+         * mailConfig.sendEmail(c.getEmail(), "Cadastro de Usuário",
+         * cliente.toString());
+         */
+        return new ClienteDTO(cliente);
+    }
 }
