@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -33,11 +35,13 @@ public class ProdutoController {
     private ProdutoService produtoService;
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<ProdutoDTO>> listar() {
         return ResponseEntity.ok(produtoService.listar());
     }
 
     @GetMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<ProdutoDTO> buscar(@PathVariable Long id) {
         ProdutoDTO produtoDto = produtoService.buscar(id);
 
@@ -48,6 +52,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}/foto")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<byte[]> buscarPorFoto(@PathVariable Long id) {
         Produto produto = produtoService.buscarPorFoto(id);
 
@@ -61,6 +66,7 @@ public class ProdutoController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Object> inserir(@RequestParam MultipartFile file,
             @RequestPart ProdutoInserirDTO produtoInserirDTO) throws IOException {
 
@@ -76,8 +82,10 @@ public class ProdutoController {
     }
 
     @PutMapping
-    public ResponseEntity<Produto> atualizar(@PathVariable Long id, @RequestBody Produto produto) {
-        Produto produtoAtualizado = produtoService.update(produto, id);
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<ProdutoDTO> atualizar(@PathVariable Long id, @RequestBody ProdutoInserirDTO produtoInserirDTO,
+            @RequestParam MultipartFile file) throws IOException {
+        ProdutoDTO produtoAtualizado = produtoService.update(produtoInserirDTO, id, file);
         return ResponseEntity.ok(produtoAtualizado);
     }
 

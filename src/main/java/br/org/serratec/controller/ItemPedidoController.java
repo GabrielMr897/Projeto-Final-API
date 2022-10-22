@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.model.ItemPedido;
@@ -28,11 +30,13 @@ public class ItemPedidoController {
     private ItemPedidoRepository itemPedidoRepository;
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<ItemPedido> listar() {
         return itemPedidoService.listar();
     }
 
     @GetMapping({ "id" })
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<ItemPedido> buscar(@PathVariable Long id) {
         Optional<ItemPedido> itemPedido = itemPedidoRepository.findById(id);
         if (itemPedido.isPresent()) {
@@ -52,6 +56,7 @@ public class ItemPedidoController {
      */
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ItemPedido> inserir(@Valid @RequestBody ItemPedido itemPedido) {
 
         if (null != itemPedido) {
@@ -63,6 +68,7 @@ public class ItemPedidoController {
     }
 
     @PutMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<ItemPedido> atualizar(@PathVariable Long id, @RequestBody ItemPedido itemPedido) {
         ItemPedido itemPedidoAtualizado = itemPedidoService.update(itemPedido, id);
         return ResponseEntity.ok(itemPedidoAtualizado);

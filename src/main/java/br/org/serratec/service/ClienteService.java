@@ -14,6 +14,7 @@ import br.org.serratec.dto.EnderecoInserirDTO;
 import br.org.serratec.model.Cliente;
 import br.org.serratec.model.Endereco;
 import br.org.serratec.repository.ClienteRepository;
+import br.org.serratec.repository.EnderecoRepository;
 
 @Service
 public class ClienteService {
@@ -23,6 +24,9 @@ public class ClienteService {
 
     @Autowired
     private EnderecoService enderecoService;
+
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -49,7 +53,7 @@ public class ClienteService {
     public ClienteDTO inserir(ClienteInserirDTO c) {
 
         EnderecoInserirDTO endereco = c.getEndereco();
-        Endereco enderecoViaCep = enderecoService.salvar(endereco.getCep(), endereco.getComplemento(),
+        Endereco enderecoViaCep = enderecoService.inserir(endereco.getCep(), endereco.getComplemento(),
                 endereco.getNumero());
 
         Cliente cliente = new Cliente();

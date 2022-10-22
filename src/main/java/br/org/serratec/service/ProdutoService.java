@@ -22,7 +22,8 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
     public ProdutoDTO inserirUriImagem(Produto produto) {
-        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/produtos/{id}/foto").buildAndExpand(produto.getIdProduto()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/produtos/{id}/foto")
+                .buildAndExpand(produto.getIdProduto()).toUri();
 
         ProdutoDTO dto = new ProdutoDTO();
         dto.setIdProduto(produto.getIdProduto());
@@ -35,7 +36,7 @@ public class ProdutoService {
 
         return dto;
     }
-    
+
     public ProdutoDTO inserir(ProdutoInserirDTO produtoInserirDTO, MultipartFile file) throws IOException {
         Produto produto = new Produto();
         produto.setNome(produtoInserirDTO.getNome());
@@ -44,46 +45,55 @@ public class ProdutoService {
         produto.setDataCadastro(produtoInserirDTO.getDataCadastro());
         produto.setValorUnitario(produtoInserirDTO.getValorUnitario());
         produto.setCategoria(produtoInserirDTO.getCategoria());
-        produto.setImagem(file.getBytes()); 
-       
-        
+        produto.setImagem(file.getBytes());
+
         produto = produtoRepository.save(produto);
         return inserirUriImagem(produto);
     }
-    
-    public List<ProdutoDTO> listar(){
+
+    public List<ProdutoDTO> listar() {
         List<Produto> produtos = produtoRepository.findAll();
         List<ProdutoDTO> produtoDTO = new ArrayList<>();
 
-        for(Produto produto : produtos) {
+        for (Produto produto : produtos) {
             produtoDTO.add(inserirUriImagem(produto));
         }
         return produtoDTO;
     }
-    
-    public ProdutoDTO buscar(Long id){
+
+    public ProdutoDTO buscar(Long id) {
         Optional<Produto> produto = produtoRepository.findById(id);
 
-        
         if (!produto.isPresent()) {
             return null;
-		}
+        }
         return new ProdutoDTO(produto.get());
-	}
+    }
 
     public Produto buscarPorFoto(Long id) {
         Optional<Produto> produto = produtoRepository.findById(id);
 
-        
         if (!produto.isPresent()) {
             return null;
-		}
+        }
         return produto.get();
     }
-    
-    
-    public Produto update (Produto produto, Long id) {
-        produto.setIdProduto(id);
-        return produtoRepository.save(produto);
+
+    public ProdutoDTO update(ProdutoInserirDTO produtoInserirDTO, Long id, MultipartFile file) throws IOException {
+        produtoInserirDTO.setIdProduto(id);
+
+        Produto produto = new Produto();
+        produto.setNome(produtoInserirDTO.getNome());
+        produto.setDescricao(produtoInserirDTO.getDescricao());
+        produto.setCategoria(produtoInserirDTO.getCategoria());
+        produto.setDataCadastro(produtoInserirDTO.getDataCadastro());
+        produto.setQuantidadeEstoque(produtoInserirDTO.getQuantidadeEstoque());
+        produto.setValorUnitario(produtoInserirDTO.getValorUnitario());
+        produto.setImagem(file.getBytes());
+        ;
+
+        produto = produtoRepository.save(produto);
+
+        return inserirUriImagem(produto);
     }
 }

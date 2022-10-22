@@ -38,7 +38,7 @@ public class EnderecoService {
         }
     }
 
-    public Endereco salvar(String cep, String complemento, Integer numero) {
+    public Endereco inserir(String cep, String complemento, Integer numero) {
         EnderecoDTO ent = buscar(cep, complemento, numero);
 
         Endereco endereco = new Endereco();
