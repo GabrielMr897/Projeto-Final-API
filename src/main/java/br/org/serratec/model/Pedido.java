@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotBlank;
 
 import br.org.serratec.enums.Status;
 
@@ -23,15 +22,12 @@ public class Pedido {
     private Long idPedido;
 
     @Column(name = "data_pedido")
-    @NotBlank(message = "preencha a data do pedido")
     private LocalDate dataPedido;
 
     @Column(name = "data_entrega")
-    @NotBlank(message = "preencha a data da entrega")
     private LocalDate dataEntrega;
 
     @Column(name = "data_envio")
-    @NotBlank(message = "preencha a data do envio")
     private LocalDate dataEnvio;
 
     @Enumerated(EnumType.STRING)
