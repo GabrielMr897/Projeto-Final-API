@@ -23,7 +23,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
             HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> erros = new ArrayList<>();
         for (FieldError erro : ex.getBindingResult().getFieldErrors()) {
-            erros.add(erro.getField() + ":" + erro.getDefaultMessage());
+            erros.add(erro.getField() + ": " + erro.getDefaultMessage());
         }
 
         ErroResposta erroResposta = new ErroResposta(status.value(),

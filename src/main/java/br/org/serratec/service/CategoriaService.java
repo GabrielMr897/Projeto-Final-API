@@ -31,7 +31,7 @@ public class CategoriaService {
     }
 
     public Categoria update (Categoria categoria, Long id) {
-        categoria.getIdCategoria();
+        categoria.setIdCategoria(id);
         return categoriaRepository.save(categoria);
     }
 }

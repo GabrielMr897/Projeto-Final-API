@@ -32,9 +32,9 @@ public class CategoriaController {
         return categoriaService.listar();
     }
 
-    @GetMapping({ "id" })
+    @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Categoria> buscar(Long id) {
+    public ResponseEntity<Categoria> buscar(@PathVariable Long id) {
         Optional<Categoria> categoria = categoriaService.buscar(id);
 
         if (categoria.isPresent()) {
@@ -49,12 +49,11 @@ public class CategoriaController {
         if (categoria == null) {
             return ResponseEntity.notFound().build();
         } else {
-            categoriaService.inserir(categoria);
-            return ResponseEntity.ok(categoria);
+            return ResponseEntity.ok(categoriaService.inserir(categoria));
         }
     }
 
-    @PutMapping
+    @PutMapping("{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Categoria> atualizar(@PathVariable Long id, @RequestBody Categoria categoria) {
         Categoria categoriaAtualizada = categoriaService.update(categoria, id);
