@@ -31,7 +31,7 @@ public class PedidoService {
     }
 
     public Pedido update(Pedido pedido, Long id) {
-        pedido.getIdPedido();
+        pedido.setIdPedido(id);
         return pedidoRepository.save(pedido);
     }
 }

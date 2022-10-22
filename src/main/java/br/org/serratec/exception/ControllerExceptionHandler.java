@@ -11,7 +11,9 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
@@ -40,5 +42,10 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
                 "Existem campos invalidos. Confira o preenchimento", LocalDateTime.now(), erros);
 
         return super.handleExceptionInternal(ex, erroResposta, headers, status, request);
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<Object> handleMaxSizeException(MaxUploadSizeExceededException exc) {
+        return ResponseEntity.unprocessableEntity().body("Arquivo muito grande, por favor, insira um com 1 megabyte");
     }
 }
