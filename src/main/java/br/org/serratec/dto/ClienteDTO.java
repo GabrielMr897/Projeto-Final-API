@@ -49,6 +49,7 @@ public class ClienteDTO {
         this.nomeUsuario = cliente.getNomeUsuario();
         this.nomeCompleto = cliente.getNomeCompleto();
         this.cpf = cliente.getCpf();
+        this.senha = cliente.getSenha();
         this.telefone = cliente.getTelefone();
         this.dataNascimento = cliente.getDataNascimento();
         this.endereco = cliente.getEndereco();
@@ -116,5 +117,13 @@ public class ClienteDTO {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }

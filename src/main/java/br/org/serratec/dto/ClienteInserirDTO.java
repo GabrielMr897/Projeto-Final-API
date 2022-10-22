@@ -14,6 +14,8 @@ import br.org.serratec.model.Cliente;
 
 public class ClienteInserirDTO {
 
+    
+
     @Email(message = " Digite um email valido")
     private String email;
 
@@ -48,6 +50,7 @@ public class ClienteInserirDTO {
         this.nomeUsuario = cliente.getNomeUsuario();
         this.nomeCompleto = cliente.getNomeCompleto();
         this.cpf = cliente.getCpf();
+        this.senha = cliente.getSenha();
         this.telefone = cliente.getTelefone();
         this.dataNascimento = cliente.getDataNascimento();
         this.senha = cliente.getSenha();
