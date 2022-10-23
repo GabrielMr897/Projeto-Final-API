@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.org.serratec.dto.ItemPedidoDTO;
 import br.org.serratec.model.ItemPedido;
 import br.org.serratec.repository.ItemPedidoRepository;
 
@@ -31,5 +32,14 @@ public class ItemPedidoService {
     public ItemPedido update(ItemPedido itemPedido, Long id) {
         itemPedido.setIdItemPedido(id);
         return itemPedidoRepository.save(itemPedido);
+    }
+    
+    public ItemPedidoDTO buscarTotalPedido(Long idPedido) {
+    	List<ItemPedido> itemPedidoTotal = itemPedidoRepository.findByPedidoIdPedido(idPedido);
+    	Double soma = 0d;
+    	for (ItemPedido itemPedido : itemPedidoTotal) {
+    		soma = itemPedido.getPrecoVenda() + soma;
+    		}
+        return new ItemPedidoDTO(idPedido, soma);
     }
 }

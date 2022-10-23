@@ -37,15 +37,12 @@ public class Produto {
 
     @Column(name = "valor_unitario")
     private Double valorUnitario;
-
-    @Lob
+    
     private byte[] imagem;
 
     @ManyToOne
     @JoinColumn(name = "id_categoria")
-    private Categoria categoria;
-
-    
+    private Categoria categoria;  
     
 
     public Long getIdProduto() {
