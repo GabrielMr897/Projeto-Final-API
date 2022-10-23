@@ -44,7 +44,7 @@ public class CategoriaController {
     }
 
     @GetMapping("{id}")
-    @ApiOperation(value = "Busca uma categoria pelo ID", notes = "Preencha com o ID da categoria")
+    @ApiOperation(value = "Busca uma categoria", notes = "Preencha com o ID da categoria")
     @ApiResponses(value = {
     		@ApiResponse(responseCode="200", description = "Retorna a categoria pelo ID"),
     		@ApiResponse(responseCode="404", description = "Categoria não encontrada"),
@@ -81,10 +81,10 @@ public class CategoriaController {
     }
 
     @PutMapping("{id}")
-    @ApiOperation(value = "Alterar uma categoria pelo ID", notes = "Preencha com o ID da categoria")
+    @ApiOperation(value = "Alterar uma categoria", notes = "Preencha com o ID da categoria")
     @ApiResponses(value = {
-    		@ApiResponse(responseCode="201", description = "Categoria criada"),
-    		@ApiResponse(responseCode="202", description = "Alteração realizada"),
+    		@ApiResponse(responseCode="201", description = "Nova categoria criada"),
+    		@ApiResponse(responseCode="202", description = "Categoria alterada"),
     		@ApiResponse(responseCode="404", description = "Categoria não encontrada"),
     		@ApiResponse(responseCode="401", description = "Erro na autenticação"),
     		@ApiResponse(responseCode="403", description = "Você não tem permissão para o recurso"),

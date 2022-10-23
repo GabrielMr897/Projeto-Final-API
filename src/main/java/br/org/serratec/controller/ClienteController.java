@@ -23,7 +23,6 @@ import br.org.serratec.service.ClienteService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/clientes")
@@ -47,7 +46,7 @@ public class ClienteController {
 	}
 
 	@GetMapping("{id}")
-    @ApiOperation(value = "Buscar um cliente pelo ID", notes = "Preencha com o ID do cliente")
+    @ApiOperation(value = "Buscar um cliente", notes = "Preencha com o ID do cliente")
     @ApiResponses(value = {
     		@ApiResponse(responseCode="200", description = "Retorna o cliente"),
     		@ApiResponse(responseCode="404", description = "Cliente não encontrado"),
@@ -85,10 +84,10 @@ public class ClienteController {
 	}
 
 	@DeleteMapping("{id}")
-    @ApiOperation(value = "Excluir um cliente")
+    @ApiOperation(value = "Excluir um cliente", notes = "Preencha com o ID do cliente")
     @ApiResponses(value = {
     		@ApiResponse(responseCode="200", description = "Cliente excluído"),
-    		@ApiResponse(responseCode="204", description = "Clientr não encontrado"),
+    		@ApiResponse(responseCode="204", description = "Cliente não encontrado"),
     		@ApiResponse(responseCode="401", description = "Erro na autenticação"),
     		@ApiResponse(responseCode="403", description = "Você não tem permissão para o recurso"),
     		@ApiResponse(responseCode="500", description = "Erro na aplicação")
@@ -104,6 +103,15 @@ public class ClienteController {
 	}
 
 	@PutMapping("{id}")
+    @ApiOperation(value = "Alterar um cliente", notes = "Preencha com o ID do cliente")
+    @ApiResponses(value = {
+    		@ApiResponse(responseCode="201", description = "Novo cliente criado"),
+    		@ApiResponse(responseCode="202", description = "Cliente alterado"),
+    		@ApiResponse(responseCode="404", description = "Cliente não encontrado"),
+    		@ApiResponse(responseCode="401", description = "Erro na autenticação"),
+    		@ApiResponse(responseCode="403", description = "Você não tem permissão para o recurso"),
+    		@ApiResponse(responseCode="500", description = "Erro na aplicação")
+    })
 	public ResponseEntity<ClienteDTO> update(@PathVariable Long id, @RequestBody ClienteInserirDTO clienteInserirDTO) {
 		ClienteDTO clienteDTO = clienteService.update(clienteInserirDTO, id);
 

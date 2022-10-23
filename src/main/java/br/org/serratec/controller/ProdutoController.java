@@ -24,6 +24,9 @@ import br.org.serratec.dto.ProdutoDTO;
 import br.org.serratec.dto.ProdutoInserirDTO;
 import br.org.serratec.model.Produto;
 import br.org.serratec.service.ProdutoService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping("/produtos")
@@ -33,12 +36,28 @@ public class ProdutoController {
     private ProdutoService produtoService;
 
     @GetMapping
+    @ApiOperation(value = "Listar todos produtos")
+    @ApiResponses(value = {
+    		@ApiResponse(responseCode="200", description = "Retorna todos os produtos"),
+    		@ApiResponse(responseCode="404", description = "Recurso não encontrado"),
+    		@ApiResponse(responseCode="401", description = "Erro na autenticação"),
+    		@ApiResponse(responseCode="403", description = "Você não tem permissão para o recurso"),
+    		@ApiResponse(responseCode="500", description = "Erro na aplicação")
+    })
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<ProdutoDTO>> listar() {
         return ResponseEntity.ok(produtoService.listar());
     }
 
     @GetMapping("{id}")
+    @ApiOperation(value = "Buscar um produto", notes = "Preencha com o ID do produto")
+    @ApiResponses(value = {
+    		@ApiResponse(responseCode="200", description = "Retorna o produto"),
+    		@ApiResponse(responseCode="404", description = "Produto não encontrado"),
+    		@ApiResponse(responseCode="401", description = "Erro na autenticação"),
+    		@ApiResponse(responseCode="403", description = "Você não tem permissão para o recurso"),
+    		@ApiResponse(responseCode="500", description = "Erro na aplicação")
+    })
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<ProdutoDTO> buscar(@PathVariable Long id) {
         ProdutoDTO produtoDto = produtoService.buscar(id);
@@ -50,6 +69,14 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}/foto")
+    @ApiOperation(value = "Buscar um produto por foto", notes = "Preencha com o ID produto")
+    @ApiResponses(value = {
+    		@ApiResponse(responseCode="200", description = "Retorna o produto"),
+    		@ApiResponse(responseCode="404", description = "Produto não encontrado"),
+    		@ApiResponse(responseCode="401", description = "Erro na autenticação"),
+    		@ApiResponse(responseCode="403", description = "Você não tem permissão para o recurso"),
+    		@ApiResponse(responseCode="500", description = "Erro na aplicação")
+    })
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<byte[]> buscarPorFoto(@PathVariable Long id) {
         Produto produto = produtoService.buscarPorFoto(id);
@@ -64,6 +91,14 @@ public class ProdutoController {
     }
 
     @PostMapping
+    @ApiOperation(value = "Registrar um produto")
+    @ApiResponses(value = {
+    		@ApiResponse(responseCode="201", description = "Produto registrado"),
+    		@ApiResponse(responseCode="404", description = "Recurso não encontrado"),
+    		@ApiResponse(responseCode="401", description = "Erro na autenticação"),
+    		@ApiResponse(responseCode="403", description = "Você não tem permissão para o recurso"),
+    		@ApiResponse(responseCode="500", description = "Erro na aplicação")
+    })
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Object> inserir(@RequestParam MultipartFile file,
             @RequestPart ProdutoInserirDTO produtoInserirDTO) throws IOException {
@@ -80,6 +115,15 @@ public class ProdutoController {
     }
 
     @PutMapping("{id}")
+    @ApiOperation(value = "Alterar um produto", notes = "Preencha com o ID do produto")
+    @ApiResponses(value = {
+    		@ApiResponse(responseCode="201", description = "Novo produto registrado"),
+    		@ApiResponse(responseCode="202", description = "Produto alterado"),
+    		@ApiResponse(responseCode="404", description = "Recurso não encontrado"),
+    		@ApiResponse(responseCode="401", description = "Erro na autenticação"),
+    		@ApiResponse(responseCode="403", description = "Você não tem permissão para o recurso"),
+    		@ApiResponse(responseCode="500", description = "Erro na aplicação")
+    })
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<ProdutoDTO> atualizar(@PathVariable Long id, @RequestPart ProdutoInserirDTO produtoInserirDTO,
             @RequestParam MultipartFile file) throws IOException {
