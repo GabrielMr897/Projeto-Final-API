@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.org.serratec.dto.ItemPedidoDTO;
 import br.org.serratec.model.ItemPedido;
 import br.org.serratec.repository.ItemPedidoRepository;
 import br.org.serratec.service.ItemPedidoService;
@@ -46,14 +47,10 @@ public class ItemPedidoController {
         }
     }
 
-    /*
-     * @GetMapping("/totalPedido")
-     * public ResponseEntity<Page<ItemPedido>> buscarPorFaixaSalarial(@RequestParam
-     * Long idPedido, Pageable pageable) {
-     * return ResponseEntity.ok(itemPedidoRepository.buscarTotalPedido(idPedido,
-     * pageable));
-     * }
-     */
+    @GetMapping("{idPedido}/totalPedido")
+    public ResponseEntity<ItemPedidoDTO> buscarTotalPedido(@PathVariable Long idPedido) {
+    	return ResponseEntity.ok(itemPedidoService.buscarTotalPedido(idPedido));
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

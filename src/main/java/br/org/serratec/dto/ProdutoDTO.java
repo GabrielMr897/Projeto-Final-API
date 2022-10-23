@@ -7,13 +7,13 @@ import br.org.serratec.model.Categoria;
 import br.org.serratec.model.Produto;
 
 public class ProdutoDTO implements Serializable {
-    private Long idProduto;
+    
+	private Long idProduto;
     private String nome;
     private String descricao;
     private LocalDate dataCadastro;
     private Double valorUnitario;
-    private Categoria categoria;
-
+    private String nomeCategoria;
     private String uri;
 
     public ProdutoDTO() {
@@ -25,7 +25,7 @@ public class ProdutoDTO implements Serializable {
         this.descricao = produto.getDescricao();
         this.dataCadastro = produto.getDataCadastro();
         this.valorUnitario = produto.getValorUnitario();
-        this.categoria = produto.getCategoria();
+        this.nomeCategoria = produto.getCategoria().getNomeCategoria();
     }
 
     public Long getIdProduto() {
@@ -68,15 +68,15 @@ public class ProdutoDTO implements Serializable {
         this.valorUnitario = valorUnitario;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
+	public String getNomeCategoria() {
+		return nomeCategoria;
+	}
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
+	public void setNomeCategoria(String nomeCategoria) {
+		this.nomeCategoria = nomeCategoria;
+	}
 
-    public String getUri() {
+	public String getUri() {
         return uri;
     }
 

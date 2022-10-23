@@ -31,7 +31,7 @@ public class ProdutoService {
         dto.setDescricao(produto.getDescricao());
         dto.setDataCadastro(produto.getDataCadastro());
         dto.setValorUnitario(produto.getValorUnitario());
-        dto.setCategoria(produto.getCategoria());
+        dto.setNomeCategoria(produto.getCategoria().getNomeCategoria());
         dto.setUri(uri.toString());
 
         return dto;
