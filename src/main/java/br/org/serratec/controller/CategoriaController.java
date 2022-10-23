@@ -63,6 +63,14 @@ public class CategoriaController {
     }
 
     @PostMapping
+    @ApiOperation(value = "Criar uma nova categoria")
+    @ApiResponses(value = {
+    		@ApiResponse(responseCode="201", description = "Categoria criada"),
+    		@ApiResponse(responseCode="404", description = "Recurso não encontrado"),
+    		@ApiResponse(responseCode="401", description = "Erro na autenticação"),
+    		@ApiResponse(responseCode="403", description = "Você não tem permissão para o recurso"),
+    		@ApiResponse(responseCode="500", description = "Erro na aplicação")
+    })
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Categoria> inserir(@Valid @RequestBody Categoria categoria) {
         if (categoria == null) {
@@ -73,6 +81,15 @@ public class CategoriaController {
     }
 
     @PutMapping("{id}")
+    @ApiOperation(value = "Alterar uma categoria pelo ID", notes = "Preencha com o ID da categoria")
+    @ApiResponses(value = {
+    		@ApiResponse(responseCode="201", description = "Categoria criada"),
+    		@ApiResponse(responseCode="202", description = "Alteração realizada"),
+    		@ApiResponse(responseCode="404", description = "Categoria não encontrada"),
+    		@ApiResponse(responseCode="401", description = "Erro na autenticação"),
+    		@ApiResponse(responseCode="403", description = "Você não tem permissão para o recurso"),
+    		@ApiResponse(responseCode="500", description = "Erro na aplicação")
+    })
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Categoria> atualizar(@PathVariable Long id, @RequestBody Categoria categoria) {
         Categoria categoriaAtualizada = categoriaService.update(categoria, id);
