@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.dto.ClienteDTO;
 import br.org.serratec.dto.ClienteInserirDTO;
+import br.org.serratec.repository.ClienteRepository;
 import br.org.serratec.service.ClienteService;
 
 @RestController
@@ -27,6 +28,9 @@ public class ClienteController {
 
 	@Autowired
 	private ClienteService clienteService;
+
+	@Autowired
+	private ClienteRepository clienteRepository;
 
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
@@ -69,8 +73,11 @@ public class ClienteController {
 
 	@PutMapping("{id}")
 	public ResponseEntity<ClienteDTO> update(@PathVariable Long id, @RequestBody ClienteInserirDTO clienteInserirDTO) {
-		ClienteDTO clienteDTO = clienteService.update(clienteInserirDTO, id);
 
+		if (!clienteRepository.existsById(id)) {
+			return ResponseEntity.notFound().build();
+		}
+		ClienteDTO clienteDTO = clienteService.update(clienteInserirDTO, id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(clienteDTO);
 	}
 

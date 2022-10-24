@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.model.Categoria;
+import br.org.serratec.repository.CategoriaRepository;
 import br.org.serratec.service.CategoriaService;
 
 @RestController
@@ -25,6 +26,9 @@ import br.org.serratec.service.CategoriaService;
 public class CategoriaController {
     @Autowired
     private CategoriaService categoriaService;
+
+    @Autowired
+    private CategoriaRepository categoriaRepository;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -56,6 +60,10 @@ public class CategoriaController {
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Categoria> atualizar(@PathVariable Long id, @RequestBody Categoria categoria) {
+
+        if (!categoriaRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
         Categoria categoriaAtualizada = categoriaService.update(categoria, id);
         return ResponseEntity.ok(categoriaAtualizada);
     }

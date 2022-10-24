@@ -68,6 +68,11 @@ public class ItemPedidoController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<ItemPedidoDTO> atualizar(@PathVariable Long id,
             @RequestBody ItemPedidoInserirDTO itemPedido) {
+
+        if (!itemPedidoRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+
         ItemPedidoDTO itemPedidoAtualizado = itemPedidoService.update(itemPedido, id);
         return ResponseEntity.ok(itemPedidoAtualizado);
     }

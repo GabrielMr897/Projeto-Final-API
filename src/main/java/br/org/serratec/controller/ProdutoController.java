@@ -23,6 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.org.serratec.dto.ProdutoDTO;
 import br.org.serratec.dto.ProdutoInserirDTO;
 import br.org.serratec.model.Produto;
+import br.org.serratec.repository.ProdutoRepository;
 import br.org.serratec.service.ProdutoService;
 
 @RestController
@@ -31,6 +32,9 @@ public class ProdutoController {
 
     @Autowired
     private ProdutoService produtoService;
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -83,6 +87,11 @@ public class ProdutoController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<ProdutoDTO> atualizar(@PathVariable Long id, @RequestPart ProdutoInserirDTO produtoInserirDTO,
             @RequestParam MultipartFile file) throws IOException {
+
+        if (!produtoRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+
         ProdutoDTO produtoAtualizado = produtoService.update(produtoInserirDTO, id, file);
         return ResponseEntity.ok(produtoAtualizado);
     }
