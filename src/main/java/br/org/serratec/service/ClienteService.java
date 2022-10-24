@@ -90,6 +90,12 @@ public class ClienteService {
 
     public ClienteDTO update(ClienteInserirDTO c, Long id) {
 
+        ClienteDTO clienteB = buscar(id);
+
+        EnderecoInserirDTO endereco = c.getEndereco();
+        Endereco enderecoViaCep = enderecoService.atualizar(endereco.getCep(), endereco.getComplemento(),
+                endereco.getNumero(), clienteB.getEndereco().getId());
+
         Cliente cliente = new Cliente();
         cliente.setId(id);
         cliente.setNomeCompleto(c.getNomeCompleto());
@@ -98,6 +104,7 @@ public class ClienteService {
         cliente.setCpf(c.getCpf());
         cliente.setTelefone(c.getTelefone());
         cliente.setDataNascimento(c.getDataNascimento());
+        cliente.setEndereco(enderecoViaCep);
         cliente.setSenha(bCryptPasswordEncoder.encode(c.getSenha()));
         cliente = clienteRepository.save(cliente);
 

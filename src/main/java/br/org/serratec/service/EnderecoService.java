@@ -55,4 +55,25 @@ public class EnderecoService {
 
         return endereco;
     }
+
+    public Endereco atualizar(String cep, String complemento, Integer numero, Long id) {
+        EnderecoDTO enderecoDTO = buscar(cep, complemento, numero);
+
+        enderecoDTO.setId(id);
+
+        Endereco endereco = new Endereco();
+        endereco.setId(id);
+        endereco.setBairro(enderecoDTO.getBairro());
+        endereco.setCep(enderecoDTO.getCep());
+        endereco.setId(enderecoDTO.getId());
+        endereco.setLogradouro(enderecoDTO.getLogradouro());
+        endereco.setLocalidade(enderecoDTO.getCidade());
+        endereco.setUf(enderecoDTO.getEstado());
+        endereco.setComplemento(enderecoDTO.getComplemento());
+        endereco.setNumero(enderecoDTO.getNumero());
+
+        endereco = enderecoRepository.save(endereco);
+
+        return endereco;
+    }
 }
