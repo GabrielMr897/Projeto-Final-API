@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import br.org.serratec.dto.ItemPedidoDTO;
 import br.org.serratec.dto.ItemPedidoInserirDTO;
 import br.org.serratec.dto.ItemPedidoTotalDTO;
-import br.org.serratec.dto.PedidoItemPedidoDTO;
-import br.org.serratec.dto.ProdutoItemPedidoDTO;
 import br.org.serratec.exception.ItemPedidoException;
 import br.org.serratec.model.ItemPedido;
 import br.org.serratec.model.Pedido;
