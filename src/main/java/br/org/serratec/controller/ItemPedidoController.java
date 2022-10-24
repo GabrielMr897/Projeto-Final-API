@@ -1,7 +1,6 @@
 package br.org.serratec.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -18,7 +17,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.org.serratec.dto.ItemPedidoDTO;
-import br.org.serratec.model.ItemPedido;
+import br.org.serratec.dto.ItemPedidoInserirDTO;
+import br.org.serratec.dto.ItemPedidoTotalDTO;
 import br.org.serratec.repository.ItemPedidoRepository;
 import br.org.serratec.service.ItemPedidoService;
 
@@ -32,32 +32,32 @@ public class ItemPedidoController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ItemPedido> listar() {
+    public List<ItemPedidoDTO> listar() {
         return itemPedidoService.listar();
     }
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<ItemPedido> buscar(@PathVariable Long id) {
-        Optional<ItemPedido> itemPedido = itemPedidoService.buscar(id);
-        if (itemPedido.isPresent()) {
-            return ResponseEntity.ok(itemPedido.get());
+    public ResponseEntity<ItemPedidoDTO> buscar(@PathVariable Long id) {
+        ItemPedidoDTO itemPedido = itemPedidoService.buscar(id);
+        if (itemPedido != null) {
+            return ResponseEntity.ok(itemPedido);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
     @GetMapping("{idPedido}/totalPedido")
-    public ResponseEntity<ItemPedidoDTO> buscarTotalPedido(@PathVariable Long idPedido) {
-    	return ResponseEntity.ok(itemPedidoService.buscarTotalPedido(idPedido));
+    public ResponseEntity<ItemPedidoTotalDTO> buscarTotalPedido(@PathVariable Long idPedido) {
+        return ResponseEntity.ok(itemPedidoService.buscarTotalPedido(idPedido));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<ItemPedido> inserir(@Valid @RequestBody ItemPedido itemPedido) {
+    public ResponseEntity<ItemPedidoDTO> inserir(@Valid @RequestBody ItemPedidoInserirDTO itemPedido) {
 
         if (null != itemPedido) {
-            ItemPedido itemPedidos = itemPedidoService.inserir(itemPedido);
+            ItemPedidoDTO itemPedidos = itemPedidoService.inserir(itemPedido);
             return ResponseEntity.ok(itemPedidos);
         } else {
             return ResponseEntity.notFound().build();
@@ -66,8 +66,9 @@ public class ItemPedidoController {
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<ItemPedido> atualizar(@PathVariable Long id, @RequestBody ItemPedido itemPedido) {
-        ItemPedido itemPedidoAtualizado = itemPedidoService.update(itemPedido, id);
+    public ResponseEntity<ItemPedidoDTO> atualizar(@PathVariable Long id,
+            @RequestBody ItemPedidoInserirDTO itemPedido) {
+        ItemPedidoDTO itemPedidoAtualizado = itemPedidoService.update(itemPedido, id);
         return ResponseEntity.ok(itemPedidoAtualizado);
     }
 }

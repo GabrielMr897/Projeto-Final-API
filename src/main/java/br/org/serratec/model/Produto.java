@@ -13,8 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-
-
 @Entity
 public class Produto {
 
@@ -37,13 +35,13 @@ public class Produto {
 
     @Column(name = "valor_unitario")
     private Double valorUnitario;
-    
+
+    @Lob
     private byte[] imagem;
 
     @ManyToOne
     @JoinColumn(name = "id_categoria")
-    private Categoria categoria;  
-    
+    private Categoria categoria;
 
     public Long getIdProduto() {
         return idProduto;
@@ -108,6 +106,5 @@ public class Produto {
     public void setImagem(byte[] imagem) {
         this.imagem = imagem;
     }
-
 
 }
