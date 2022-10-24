@@ -46,17 +46,17 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
-    public ResponseEntity<Object> handleMaxSizeException(MaxUploadSizeExceededException exc) {
+    public ResponseEntity<Object> handleMaxSizeException(MaxUploadSizeExceededException maxException) {
         return ResponseEntity.unprocessableEntity().body("Arquivo muito grande, por favor, insira um com 1 megabyte");
     }
 
     @ExceptionHandler(EmailException.class)
-    public ResponseEntity<Object> handleEmailException(EmailException ex) {
-        return ResponseEntity.unprocessableEntity().body(ex.getMessage());
+    public ResponseEntity<Object> handleEmailException(EmailException emailException) {
+        return ResponseEntity.unprocessableEntity().body(emailException.getMessage());
     }
 
     @ExceptionHandler(HttpClientErrorException.class)
-    public ResponseEntity<Object> handleHttpClientErrorException(HttpClientErrorException ex) {
+    public ResponseEntity<Object> handleHttpClientErrorException(HttpClientErrorException cepException) {
         return ResponseEntity.unprocessableEntity().body("Cep inválido!");
     }
 }
