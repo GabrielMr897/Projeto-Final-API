@@ -26,6 +26,8 @@ import br.org.serratec.service.PedidoService;
 public class PedidoController {
     @Autowired
     private PedidoService pedidoService;
+
+    @Autowired
     private PedidoRepository pedidoRepository;
 
     @GetMapping

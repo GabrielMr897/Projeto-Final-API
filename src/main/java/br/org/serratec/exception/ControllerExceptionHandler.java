@@ -12,6 +12,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -47,5 +48,15 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResponseEntity<Object> handleMaxSizeException(MaxUploadSizeExceededException exc) {
         return ResponseEntity.unprocessableEntity().body("Arquivo muito grande, por favor, insira um com 1 megabyte");
+    }
+
+    @ExceptionHandler(EmailException.class)
+    public ResponseEntity<Object> handleEmailException(EmailException ex) {
+        return ResponseEntity.unprocessableEntity().body(ex.getMessage());
+    }
+
+    @ExceptionHandler(HttpClientErrorException.class)
+    public ResponseEntity<Object> handleHttpClientErrorException(HttpClientErrorException ex) {
+        return ResponseEntity.unprocessableEntity().body("Cep inválido!");
     }
 }

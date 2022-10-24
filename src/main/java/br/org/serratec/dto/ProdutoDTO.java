@@ -3,12 +3,11 @@ package br.org.serratec.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import br.org.serratec.model.Categoria;
 import br.org.serratec.model.Produto;
 
 public class ProdutoDTO implements Serializable {
-    
-	private Long idProduto;
+
+    private Long idProduto;
     private String nome;
     private String descricao;
     private LocalDate dataCadastro;
@@ -68,15 +67,15 @@ public class ProdutoDTO implements Serializable {
         this.valorUnitario = valorUnitario;
     }
 
-	public String getNomeCategoria() {
-		return nomeCategoria;
-	}
+    public String getNomeCategoria() {
+        return nomeCategoria;
+    }
 
-	public void setNomeCategoria(String nomeCategoria) {
-		this.nomeCategoria = nomeCategoria;
-	}
+    public void setNomeCategoria(String nomeCategoria) {
+        this.nomeCategoria = nomeCategoria;
+    }
 
-	public String getUri() {
+    public String getUri() {
         return uri;
     }
 
