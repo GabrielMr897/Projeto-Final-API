@@ -44,13 +44,7 @@ public class ItemPedidoService {
         itemPedido.setPedido(pedido.get());
         itemPedido = itemPedidoRepository.save(itemPedido);
 
-        ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
-        itemPedidoDTO.setPrecoVenda(ips.getPrecoVenda());
-        itemPedidoDTO.setQuantidade(ips.getQuantidade());
-        itemPedidoDTO.setProduto(new ProdutoItemPedidoDTO(produto.get()));
-        itemPedidoDTO.setPedido(new PedidoItemPedidoDTO(pedido.get()));
-
-        return itemPedidoDTO;
+        return new ItemPedidoDTO(itemPedido);
 
     }
 
@@ -74,7 +68,6 @@ public class ItemPedidoService {
     }
 
     public ItemPedidoDTO update(ItemPedidoInserirDTO itemPedidoInserirDTO, Long id) {
-        itemPedidoInserirDTO.setIdItemPedido(id);
 
         Optional<Produto> produto = produtoRepository.findById(itemPedidoInserirDTO.getProduto().getIdProduto());
 
@@ -88,14 +81,7 @@ public class ItemPedidoService {
         itemPedido.setPedido(pedido.get());
         itemPedido = itemPedidoRepository.save(itemPedido);
 
-        ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
-        itemPedidoDTO.setIdItemPedido(id);
-        itemPedidoDTO.setPrecoVenda(itemPedidoInserirDTO.getPrecoVenda());
-        itemPedidoDTO.setQuantidade(itemPedidoInserirDTO.getQuantidade());
-        itemPedidoDTO.setProduto(new ProdutoItemPedidoDTO(produto.get()));
-        itemPedidoDTO.setPedido(new PedidoItemPedidoDTO(pedido.get()));
-
-        return itemPedidoDTO;
+        return new ItemPedidoDTO(itemPedido);
     }
 
     public ItemPedidoTotalDTO buscarTotalPedido(Long idPedido) {

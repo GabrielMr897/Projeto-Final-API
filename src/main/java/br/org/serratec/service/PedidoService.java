@@ -1,12 +1,17 @@
 package br.org.serratec.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.org.serratec.dto.PedidoDTO;
+import br.org.serratec.dto.PedidoInserirDTO;
+import br.org.serratec.model.Cliente;
 import br.org.serratec.model.Pedido;
+import br.org.serratec.repository.ClienteRepository;
 import br.org.serratec.repository.PedidoRepository;
 
 @Service
@@ -15,23 +20,55 @@ public class PedidoService {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    public Pedido inserir(Pedido p) {
-        pedidoRepository.save(p);
-        return p;
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    public PedidoDTO inserir(PedidoInserirDTO pedidoInserirDTO) {
+        Optional<Cliente> cliente = clienteRepository.findById(pedidoInserirDTO.getCliente().getId());
+
+        Pedido pedido = new Pedido();
+        pedido.setDataEntrega(pedidoInserirDTO.getDataEntrega());
+        pedido.setDataEnvio(pedidoInserirDTO.getDataEnvio());
+        pedido.setDataPedido(pedidoInserirDTO.getDataPedido());
+        pedido.setStatus(pedidoInserirDTO.getStatus());
+        pedido.setCliente(cliente.get());
+        pedido = pedidoRepository.save(pedido);
+
+        return new PedidoDTO(pedido);
+
     }
 
-    public List<Pedido> listar() {
-        return pedidoRepository.findAll();
+    public List<PedidoDTO> listar() {
+        List<Pedido> pedidos = pedidoRepository.findAll();
+        List<PedidoDTO> pedidoDTOs = new ArrayList<>();
+
+        for (Pedido pedido : pedidos) {
+            pedidoDTOs.add(new PedidoDTO(pedido));
+        }
+        return pedidoDTOs;
     }
 
-    public Optional<Pedido> buscar(Long id) {
+    public PedidoDTO buscar(Long id) {
         Optional<Pedido> pedido = pedidoRepository.findById(id);
 
-        return pedido;
+        if (!pedido.isPresent()) {
+            return null;
+        }
+        return new PedidoDTO(pedido.get());
     }
 
-    public Pedido update(Pedido pedido, Long id) {
+    public PedidoDTO update(PedidoInserirDTO pedidoInserirDTO, Long id) {
+        Optional<Cliente> cliente = clienteRepository.findById(pedidoInserirDTO.getCliente().getId());
+
+        Pedido pedido = new Pedido();
         pedido.setIdPedido(id);
-        return pedidoRepository.save(pedido);
+        pedido.setDataEntrega(pedidoInserirDTO.getDataEntrega());
+        pedido.setDataEnvio(pedidoInserirDTO.getDataEnvio());
+        pedido.setDataPedido(pedidoInserirDTO.getDataPedido());
+        pedido.setStatus(pedidoInserirDTO.getStatus());
+        pedido.setCliente(cliente.get());
+        pedido = pedidoRepository.save(pedido);
+
+        return new PedidoDTO(pedido);
     }
 }
