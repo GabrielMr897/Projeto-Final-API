@@ -12,6 +12,7 @@ import br.org.serratec.config.MailConfig;
 import br.org.serratec.dto.ClienteDTO;
 import br.org.serratec.dto.ClienteInserirDTO;
 import br.org.serratec.dto.EnderecoInserirDTO;
+import br.org.serratec.exception.EmailException;
 import br.org.serratec.model.Cliente;
 import br.org.serratec.model.Endereco;
 import br.org.serratec.repository.ClienteRepository;
@@ -51,6 +52,11 @@ public class ClienteService {
     }
 
     public ClienteDTO inserir(ClienteInserirDTO c) {
+
+        if (clienteRepository.findByEmail(c.getEmail()) != null) {
+            throw new EmailException("Email já existe na base");
+
+        }
 
         EnderecoInserirDTO endereco = c.getEndereco();
         Endereco enderecoViaCep = enderecoService.inserir(endereco.getCep(), endereco.getComplemento(),
