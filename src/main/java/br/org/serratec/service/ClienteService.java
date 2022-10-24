@@ -15,7 +15,6 @@ import br.org.serratec.dto.EnderecoInserirDTO;
 import br.org.serratec.model.Cliente;
 import br.org.serratec.model.Endereco;
 import br.org.serratec.repository.ClienteRepository;
-import br.org.serratec.repository.EnderecoRepository;
 
 @Service
 public class ClienteService {
@@ -25,9 +24,6 @@ public class ClienteService {
 
     @Autowired
     private EnderecoService enderecoService;
-
-    @Autowired
-    private EnderecoRepository enderecoRepository;
 
     @Autowired
     private MailConfig mailConfig;
@@ -71,10 +67,9 @@ public class ClienteService {
         cliente.setEndereco(enderecoViaCep);
         cliente = clienteRepository.save(cliente);
 
-        /*
-         * mailConfig.sendEmail(c.getEmail(), "Cadastro de Usuário",
-         * cliente.toString());
-         */
+        mailConfig.sendEmail(c.getEmail(), "Cadastro de Usuário",
+                cliente.toString());
+
         return new ClienteDTO(cliente);
     }
 
@@ -100,7 +95,7 @@ public class ClienteService {
         cliente.setSenha(bCryptPasswordEncoder.encode(c.getSenha()));
         cliente = clienteRepository.save(cliente);
 
-        mailConfig.sendEmail(cliente.getEmail(), "Cadastro de Usuário", cliente.toString());
+        mailConfig.sendEmailUpdate(cliente.getEmail(), "Alteração do usuário", cliente.toString());
         return new ClienteDTO(cliente);
     }
 }

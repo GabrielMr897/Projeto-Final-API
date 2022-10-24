@@ -1,48 +1,32 @@
-package br.org.serratec.model;
+package br.org.serratec.dto;
 
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import br.org.serratec.enums.Status;
+import br.org.serratec.model.Cliente;
+import br.org.serratec.model.Pedido;
 
-@Entity
-public class Pedido {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_pedido")
-    private Long idPedido;
+public class PedidoInserirDTO {
 
-    @Column(name = "data_pedido")
     private LocalDate dataPedido;
 
-    @Column(name = "data_entrega")
     private LocalDate dataEntrega;
 
-    @Column(name = "data_envio")
     private LocalDate dataEnvio;
 
-    @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne
-    @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
-    public Long getIdPedido() {
-        return idPedido;
+    public PedidoInserirDTO(Pedido pedido) {
+        this.dataPedido = pedido.getDataPedido();
+        this.dataEntrega = pedido.getDataEntrega();
+        this.dataEnvio = pedido.getDataEnvio();
+        this.status = pedido.getStatus();
+        this.cliente = pedido.getCliente();
     }
 
-    public void setIdPedido(Long idPedido) {
-        this.idPedido = idPedido;
+    public PedidoInserirDTO() {
     }
 
     public LocalDate getDataPedido() {
@@ -84,5 +68,4 @@ public class Pedido {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-
 }

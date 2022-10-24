@@ -13,11 +13,21 @@ public class MailConfig {
 
     public void sendEmail(String para, String assunto, String texto) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("gabriel.souza60@aluno.senai.br");
+        message.setFrom("grupo2apiserratec@gmail.com");
         message.setTo(para);
         message.setSubject(assunto);
         message.setText(texto);
         message.setText("Dados do cadastro do usuário:\n" + texto + "\n\n\n\n" + "Serratec Residência-2022");
+        javaMailSender.send(message);
+    }
+
+    public void sendEmailUpdate(String para, String assunto, String texto) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("grupo2apiserratec@gmail.com");
+        message.setTo(para);
+        message.setSubject(assunto);
+        message.setText(texto);
+        message.setText("Dados do usuário alterados usuário:\n" + texto + "\n\n\n\n" + "Serratec Residência-2022");
         javaMailSender.send(message);
     }
 

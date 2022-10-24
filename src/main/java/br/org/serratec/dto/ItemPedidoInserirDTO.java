@@ -6,7 +6,7 @@ import br.org.serratec.model.Produto;
 
 public class ItemPedidoInserirDTO {
 
-    private Long idItemPedido;
+
 
     private Produto produto;
 
@@ -17,7 +17,6 @@ public class ItemPedidoInserirDTO {
     private Integer precoVenda;
 
     public ItemPedidoInserirDTO(ItemPedido itemPedido) {
-        this.idItemPedido = itemPedido.getIdItemPedido();
         this.produto = itemPedido.getProduto();
         this.pedido = itemPedido.getPedido();
         this.quantidade = itemPedido.getQuantidade();
@@ -25,14 +24,6 @@ public class ItemPedidoInserirDTO {
     }
 
     public ItemPedidoInserirDTO() {
-    }
-
-    public Long getIdItemPedido() {
-        return idItemPedido;
-    }
-
-    public void setIdItemPedido(Long idItemPedido) {
-        this.idItemPedido = idItemPedido;
     }
 
     public Produto getProduto() {
