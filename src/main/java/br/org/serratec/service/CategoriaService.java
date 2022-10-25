@@ -19,19 +19,27 @@ public class CategoriaService {
         return c;
     }
 
-
     public List<Categoria> listar() {
-        return categoriaRepository.findAll(); 
+        return categoriaRepository.findAll();
     }
-    
+
     public Optional<Categoria> buscar(Long id) {
         Optional<Categoria> categoria = categoriaRepository.findById(id);
 
         return categoria;
     }
 
-    public Categoria update (Categoria categoria, Long id) {
+    public Categoria update(Categoria categoria, Long id) {
         categoria.setIdCategoria(id);
         return categoriaRepository.save(categoria);
+    }
+
+    public Boolean delete(Long id) {
+        Optional<Categoria> categorias = categoriaRepository.findById(id);
+        if (categorias.isPresent()) {
+            categoriaRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

@@ -1,5 +1,6 @@
 package br.org.serratec.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,8 +22,8 @@ public class ItemPedido {
     @ManyToOne
     @JoinColumn(name = "id_produto")
     private Produto produto;
-    
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_pedido")
     private Pedido pedido;
 
@@ -55,15 +56,15 @@ public class ItemPedido {
         this.idItemPedido = idItemPedido;
     }
 
-	public Produto getProduto() {
-		return produto;
-	}
+    public Produto getProduto() {
+        return produto;
+    }
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
 
-	public Pedido getPedido() {
+    public Pedido getPedido() {
         return pedido;
     }
 

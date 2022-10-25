@@ -1,45 +1,25 @@
 package br.org.serratec.dto;
 
 import br.org.serratec.model.ItemPedido;
-import br.org.serratec.model.Pedido;
-import br.org.serratec.model.Produto;
 
 public class ItemPedidoInserirDTO {
 
+    private ProdutoItemPedidoInserirDTO produto;
 
-
-    private Produto produto;
-
-    private Pedido pedido;
+    private PedidoItemPedidoInserirDTO pedido;
 
     private Integer quantidade;
 
     private Integer precoVenda;
 
     public ItemPedidoInserirDTO(ItemPedido itemPedido) {
-        this.produto = itemPedido.getProduto();
-        this.pedido = itemPedido.getPedido();
+        this.produto = new ProdutoItemPedidoInserirDTO(itemPedido.getProduto());
+        this.pedido = new PedidoItemPedidoInserirDTO(itemPedido.getPedido());
         this.quantidade = itemPedido.getQuantidade();
         this.precoVenda = itemPedido.getPrecoVenda();
     }
 
     public ItemPedidoInserirDTO() {
-    }
-
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
-
-    public Pedido getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
     }
 
     public Integer getQuantidade() {
@@ -56,5 +36,21 @@ public class ItemPedidoInserirDTO {
 
     public void setPrecoVenda(Integer precoVenda) {
         this.precoVenda = precoVenda;
+    }
+
+    public PedidoItemPedidoInserirDTO getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(PedidoItemPedidoInserirDTO pedido) {
+        this.pedido = pedido;
+    }
+
+    public ProdutoItemPedidoInserirDTO getProduto() {
+        return produto;
+    }
+
+    public void setProduto(ProdutoItemPedidoInserirDTO produto) {
+        this.produto = produto;
     }
 }
