@@ -16,7 +16,7 @@ public class ProdutoInserirDTO {
     private String nome;
 
     @NotNull(message = " Por favor, preencha o nome do produto.")
-    @Size(max = 100, message = "Tamanho máximo para descrição de 100 caracteres.")
+    @Size(max = 255, message = "Tamanho máximo para descrição de 100 caracteres.")
     private String descricao;
 
     @NotBlank(message = " Por favor, preencha a quantidade de produtos em estoque.")
