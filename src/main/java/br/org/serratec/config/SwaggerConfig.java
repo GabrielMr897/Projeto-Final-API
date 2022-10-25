@@ -24,8 +24,8 @@ public class SwaggerConfig {
     public ApiInfo apiInfo() {
         ApiInfo apiInfo = new ApiInfoBuilder().title("Trabalho final de API")
                 .description("Essa api foi desenvolvida no grupo 2").license("Apache License 2.0")
-                .licenseUrl("http://www.apache.org/license").termsOfServiceUrl("/service.html").version("1.0.1")
-                .contact(new Contact("Serratec", "www.serratec.org.br", "serratec@serratec.org.br")).build();
+                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0.html").version("1.0.1")
+                .contact(new Contact("Serratec", "https://serratec.org/", "serratec@serratec.org.br")).build();
 
         return apiInfo;
     }
