@@ -12,6 +12,7 @@ import br.org.serratec.config.MailConfig;
 import br.org.serratec.dto.ClienteDTO;
 import br.org.serratec.dto.ClienteInserirDTO;
 import br.org.serratec.dto.EnderecoInserirDTO;
+import br.org.serratec.exception.CpfException;
 import br.org.serratec.exception.EmailException;
 import br.org.serratec.model.Cliente;
 import br.org.serratec.model.Endereco;
@@ -58,6 +59,10 @@ public class ClienteService {
 
         }
 
+        if (clienteRepository.findByCpf(c.getCpf()) != null) {
+            throw new CpfException("CPF já existe na base");
+        }
+
         EnderecoInserirDTO endereco = c.getEndereco();
         Endereco enderecoViaCep = enderecoService.inserir(endereco.getCep(), endereco.getComplemento(),
                 endereco.getNumero());
@@ -100,7 +105,7 @@ public class ClienteService {
         cliente.setId(id);
         cliente.setNomeCompleto(c.getNomeCompleto());
         cliente.setNomeUsuario(c.getNomeUsuario());
-        cliente.setEmail(c.getEmail());
+        cliente.setEmail(c.getEmail()); 
         cliente.setCpf(c.getCpf());
         cliente.setTelefone(c.getTelefone());
         cliente.setDataNascimento(c.getDataNascimento());

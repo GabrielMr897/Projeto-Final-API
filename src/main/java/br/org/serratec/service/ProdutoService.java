@@ -13,13 +13,18 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.org.serratec.dto.ProdutoDTO;
 import br.org.serratec.dto.ProdutoInserirDTO;
+import br.org.serratec.model.Categoria;
 import br.org.serratec.model.Produto;
+import br.org.serratec.repository.CategoriaRepository;
 import br.org.serratec.repository.ProdutoRepository;
 
 @Service
 public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
+
+    @Autowired
+    private CategoriaRepository categoriaRepository;
 
     public ProdutoDTO inserirUriImagem(Produto produto) {
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/produtos/{id}/foto")
@@ -31,6 +36,7 @@ public class ProdutoService {
         dto.setDescricao(produto.getDescricao());
         dto.setDataCadastro(produto.getDataCadastro());
         dto.setValorUnitario(produto.getValorUnitario());
+        dto.setQuantidadeEstoque(produto.getQuantidadeEstoque());
         dto.setNomeCategoria(produto.getCategoria().getNomeCategoria());
         dto.setUri(uri.toString());
 
@@ -38,13 +44,14 @@ public class ProdutoService {
     }
 
     public ProdutoDTO inserir(ProdutoInserirDTO produtoInserirDTO, MultipartFile file) throws IOException {
+        Optional<Categoria> categoria = categoriaRepository.findById(produtoInserirDTO.getCategoria().getIdCategoria());
         Produto produto = new Produto();
         produto.setNome(produtoInserirDTO.getNome());
         produto.setDescricao(produtoInserirDTO.getDescricao());
         produto.setQuantidadeEstoque(produtoInserirDTO.getQuantidadeEstoque());
         produto.setDataCadastro(produtoInserirDTO.getDataCadastro());
         produto.setValorUnitario(produtoInserirDTO.getValorUnitario());
-        produto.setCategoria(produtoInserirDTO.getCategoria());
+        produto.setCategoria(categoria.get());
         produto.setImagem(file.getBytes());
 
         produto = produtoRepository.save(produto);
@@ -67,7 +74,7 @@ public class ProdutoService {
         if (!produto.isPresent()) {
             return null;
         }
-        return new ProdutoDTO(produto.get());
+        return inserirUriImagem(produto.get());
     }
 
     public Produto buscarPorFoto(Long id) {

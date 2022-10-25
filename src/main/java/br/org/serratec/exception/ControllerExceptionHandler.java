@@ -59,4 +59,9 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleHttpClientErrorException(HttpClientErrorException cepException) {
         return ResponseEntity.unprocessableEntity().body("Cep inválido!");
     }
+
+    @ExceptionHandler(CpfException.class)
+    public ResponseEntity<Object> handleCpfException(CpfException cpfException) {
+        return ResponseEntity.unprocessableEntity().body(cpfException.getMessage());
+    }
 }

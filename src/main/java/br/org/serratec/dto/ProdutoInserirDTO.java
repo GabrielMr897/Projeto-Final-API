@@ -28,7 +28,7 @@ public class ProdutoInserirDTO {
     @NotBlank(message = " Por favor, preencha o valor unitário do produto.")
     private Double valorUnitario;
 
-    @NotBlank(message = " Por favor, preencha o nome da categoria do produto.")
+    @NotBlank(message = " Por favor, preencha o id da categoria do produto.")
     private Categoria categoria;
 
     public ProdutoInserirDTO() {

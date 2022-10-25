@@ -11,6 +11,7 @@ public class ProdutoDTO implements Serializable {
     private String nome;
     private String descricao;
     private LocalDate dataCadastro;
+    private Integer quantidadeEstoque;
     private Double valorUnitario;
     private String nomeCategoria;
     private String uri;
@@ -25,6 +26,7 @@ public class ProdutoDTO implements Serializable {
         this.dataCadastro = produto.getDataCadastro();
         this.valorUnitario = produto.getValorUnitario();
         this.nomeCategoria = produto.getCategoria().getNomeCategoria();
+        this.quantidadeEstoque = produto.getQuantidadeEstoque();
     }
 
     public Long getIdProduto() {
@@ -81,6 +83,14 @@ public class ProdutoDTO implements Serializable {
 
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    public Integer getQuantidadeEstoque() {
+        return quantidadeEstoque;
+    }
+
+    public void setQuantidadeEstoque(Integer quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
     }
 
 }
