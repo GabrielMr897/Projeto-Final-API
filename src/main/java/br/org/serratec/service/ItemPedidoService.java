@@ -93,4 +93,13 @@ public class ItemPedidoService {
         itemPedidoDTO.setTotalPedido(totalPedido);
         return itemPedidoDTO;
     }
+
+    public Boolean delete(Long id) {
+        Optional<ItemPedido> itemPedidos = itemPedidoRepository.findById(id);
+        if (itemPedidos.isPresent()) {
+            itemPedidoRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }

@@ -103,4 +103,13 @@ public class ProdutoService {
 
         return inserirUriImagem(produto);
     }
+
+    public Boolean delete(Long id) {
+        Optional<Produto> produtos = produtoRepository.findById(id);
+        if (produtos.isPresent()) {
+            produtoRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }

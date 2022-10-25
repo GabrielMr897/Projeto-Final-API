@@ -2,6 +2,7 @@ package br.org.serratec.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -52,7 +53,7 @@ public class Cliente {
     @Column(name = "data_nasc")
     private LocalDate dataNascimento;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 

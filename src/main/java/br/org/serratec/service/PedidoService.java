@@ -72,4 +72,13 @@ public class PedidoService {
 
         return new PedidoDTO(pedido);
     }
+
+    public Boolean delete(Long id) {
+        Optional<Pedido> pedidos = pedidoRepository.findById(id);
+        if (pedidos.isPresent()) {
+            pedidoRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }

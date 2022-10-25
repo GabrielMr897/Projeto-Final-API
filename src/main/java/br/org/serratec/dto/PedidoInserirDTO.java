@@ -3,7 +3,6 @@ package br.org.serratec.dto;
 import java.time.LocalDate;
 
 import br.org.serratec.enums.Status;
-import br.org.serratec.model.Cliente;
 import br.org.serratec.model.Pedido;
 
 public class PedidoInserirDTO {
@@ -14,13 +13,13 @@ public class PedidoInserirDTO {
 
     private Status status;
 
-    private Cliente cliente;
+    private ClientePedidoInserirDTO cliente;
 
     public PedidoInserirDTO(Pedido pedido) {
         this.dataEntrega = pedido.getDataEntrega();
         this.dataEnvio = pedido.getDataEnvio();
         this.status = pedido.getStatus();
-        this.cliente = pedido.getCliente();
+        this.cliente = new ClientePedidoInserirDTO(pedido.getCliente());
     }
 
     public PedidoInserirDTO() {
@@ -50,11 +49,12 @@ public class PedidoInserirDTO {
         this.status = status;
     }
 
-    public Cliente getCliente() {
+    public ClientePedidoInserirDTO getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(ClientePedidoInserirDTO cliente) {
         this.cliente = cliente;
     }
+
 }
