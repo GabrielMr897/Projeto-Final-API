@@ -8,8 +8,6 @@ import br.org.serratec.model.Pedido;
 
 public class PedidoInserirDTO {
 
-    private LocalDate dataPedido;
-
     private LocalDate dataEntrega;
 
     private LocalDate dataEnvio;
@@ -19,7 +17,6 @@ public class PedidoInserirDTO {
     private Cliente cliente;
 
     public PedidoInserirDTO(Pedido pedido) {
-        this.dataPedido = pedido.getDataPedido();
         this.dataEntrega = pedido.getDataEntrega();
         this.dataEnvio = pedido.getDataEnvio();
         this.status = pedido.getStatus();
@@ -27,14 +24,6 @@ public class PedidoInserirDTO {
     }
 
     public PedidoInserirDTO() {
-    }
-
-    public LocalDate getDataPedido() {
-        return dataPedido;
-    }
-
-    public void setDataPedido(LocalDate dataPedido) {
-        this.dataPedido = dataPedido;
     }
 
     public LocalDate getDataEntrega() {
