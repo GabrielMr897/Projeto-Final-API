@@ -1,5 +1,7 @@
 package br.org.serratec.dto;
 
+import javax.validation.constraints.NotNull;
+
 import br.org.serratec.model.ItemPedido;
 
 public class ItemPedidoInserirDTO {
@@ -8,8 +10,10 @@ public class ItemPedidoInserirDTO {
 
     private PedidoItemPedidoInserirDTO pedido;
 
+    @NotNull(message = "por favor preencha a quantidade")
     private Integer quantidade;
 
+    @NotNull(message = "por favor preencha o preço da venda")
     private Integer precoVenda;
 
     public ItemPedidoInserirDTO(ItemPedido itemPedido) {
