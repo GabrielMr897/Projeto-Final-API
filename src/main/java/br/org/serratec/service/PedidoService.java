@@ -1,5 +1,6 @@
 package br.org.serratec.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +30,7 @@ public class PedidoService {
         Pedido pedido = new Pedido();
         pedido.setDataEntrega(pedidoInserirDTO.getDataEntrega());
         pedido.setDataEnvio(pedidoInserirDTO.getDataEnvio());
-        pedido.setDataPedido(pedidoInserirDTO.getDataPedido());
+        pedido.setDataPedido(LocalDate.now());
         pedido.setStatus(pedidoInserirDTO.getStatus());
         pedido.setCliente(cliente.get());
         pedido = pedidoRepository.save(pedido);
@@ -64,7 +65,7 @@ public class PedidoService {
         pedido.setIdPedido(id);
         pedido.setDataEntrega(pedidoInserirDTO.getDataEntrega());
         pedido.setDataEnvio(pedidoInserirDTO.getDataEnvio());
-        pedido.setDataPedido(pedidoInserirDTO.getDataPedido());
+        pedido.setDataPedido(LocalDate.now());
         pedido.setStatus(pedidoInserirDTO.getStatus());
         pedido.setCliente(cliente.get());
         pedido = pedidoRepository.save(pedido);
