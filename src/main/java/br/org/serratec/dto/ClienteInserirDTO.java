@@ -14,8 +14,6 @@ import br.org.serratec.model.Cliente;
 
 public class ClienteInserirDTO {
 
-    
-
     @Email(message = " Digite um email valido")
     private String email;
 
@@ -30,6 +28,7 @@ public class ClienteInserirDTO {
     private String senha;
 
     @CPF(message = " Você deve digitar um cpf válido")
+    @Size(min = 11, max = 11, message = " por favor, digite 11 caracteres, sem ponto ou traço.")
     private String cpf;
 
     @NotBlank(message = " Você deve digitar um telefone válido")

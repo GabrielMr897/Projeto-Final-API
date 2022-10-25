@@ -18,6 +18,8 @@ public class ProdutoItemPedidoDTO {
 
     private Double valorUnitario;
 
+    private String nomeCategoria;
+
     public ProdutoItemPedidoDTO(Produto produto) {
         this.idProduto = produto.getIdProduto();
         this.nome = produto.getNome();
@@ -25,6 +27,7 @@ public class ProdutoItemPedidoDTO {
         this.quantidadeEstoque = produto.getQuantidadeEstoque();
         this.dataCadastro = produto.getDataCadastro();
         this.valorUnitario = produto.getValorUnitario();
+        this.nomeCategoria = produto.getCategoria().getNomeCategoria();
     }
 
     public ProdutoItemPedidoDTO() {
@@ -76,5 +79,13 @@ public class ProdutoItemPedidoDTO {
 
     public void setIdProduto(Long idProduto) {
         this.idProduto = idProduto;
+    }
+
+    public String getNomeCategoria() {
+        return nomeCategoria;
+    }
+
+    public void setNomeCategoria(String nomeCategoria) {
+        this.nomeCategoria = nomeCategoria;
     }
 }
