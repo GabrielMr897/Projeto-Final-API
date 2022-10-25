@@ -39,17 +39,17 @@ public class EnderecoService {
     }
 
     public Endereco inserir(String cep, String complemento, Integer numero) {
-        EnderecoDTO ent = buscar(cep, complemento, numero);
+        EnderecoDTO enderecoDTO = buscar(cep, complemento, numero);
 
         Endereco endereco = new Endereco();
-        endereco.setBairro(ent.getBairro());
-        endereco.setCep(ent.getCep());
-        endereco.setId(ent.getId());
-        endereco.setLogradouro(ent.getLogradouro());
-        endereco.setLocalidade(ent.getCidade());
-        endereco.setUf(ent.getEstado());
-        endereco.setComplemento(ent.getComplemento());
-        endereco.setNumero(ent.getNumero());
+        endereco.setBairro(enderecoDTO.getBairro());
+        endereco.setCep(enderecoDTO.getCep());
+        endereco.setId(enderecoDTO.getId());
+        endereco.setLogradouro(enderecoDTO.getLogradouro());
+        endereco.setLocalidade(enderecoDTO.getCidade());
+        endereco.setUf(enderecoDTO.getEstado());
+        endereco.setComplemento(enderecoDTO.getComplemento());
+        endereco.setNumero(enderecoDTO.getNumero());
 
         endereco = enderecoRepository.save(endereco);
 
